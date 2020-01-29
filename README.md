@@ -23,6 +23,10 @@
 
     * Junit 5
 
+    * MongoDB
+
+    * JPA, Hibernate
+
   FrontEnd
 
     React
