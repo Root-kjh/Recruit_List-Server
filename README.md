@@ -15,15 +15,19 @@
 
 ## 기술스택
 
+  Server
+    
+    * AWS
+
+    * MongoDB
+
   BackEnd
 
-    * Java1.8
+    * Java 1.8
 
     * Spring 5.0.7
 
     * Junit 5
-
-    * MongoDB
 
     * JPA, Hibernate
 
