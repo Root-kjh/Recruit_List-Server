@@ -17,9 +17,9 @@
 
   Server
     
-    * AWS
+    * AWS EC2
 
-    * MongoDB
+    * MongoDB 4.0.16
 
   BackEnd
 
