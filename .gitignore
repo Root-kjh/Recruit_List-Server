@@ -27,3 +27,6 @@ hs_err_pid*
 
 # Eclipse Target File
 target/
+
+#Beans File
+.springBeans
