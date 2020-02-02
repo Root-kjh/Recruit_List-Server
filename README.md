@@ -21,6 +21,8 @@
 
     * MongoDB 4.0.16
 
+    * MariaDB 10.4
+
   BackEnd
 
     * Java 1.8
