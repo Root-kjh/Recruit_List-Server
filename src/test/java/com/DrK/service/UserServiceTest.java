@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.DrK.domain.UserVO;
+import com.DrK.entities.User;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -21,8 +21,8 @@ public class UserServiceTest {
 	
 	@Test
 	public void getListTest() {
-		for (UserVO userVO: userService.getList()) {
-			log.info(userVO);
+		for (User user: userService.getList()) {
+			log.info(user.getId());
 		}
 	}
 }

@@ -7,7 +7,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
-import com.DrK.domain.UserVO;
+import com.DrK.entities.User;
 
 @Repository
 public class UserRepository{
@@ -15,10 +15,11 @@ public class UserRepository{
 	@PersistenceContext // EntityManagerFactory가 DI 할 수 있도록 설정
 	private EntityManager em;
 	
-	public List<UserVO> findAll(){
-		String jpql="select id from User order by idx desc";
-		TypedQuery<UserVO> query=em.createQuery(jpql,UserVO.class);
+	public List<User> findAll(){
+		String jpql="select u from User u order by u.idx desc";
+		TypedQuery<User> query=em.createQuery(jpql,User.class);
 		
 		return query.getResultList();
 	}
+	
 }

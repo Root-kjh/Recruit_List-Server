@@ -49,7 +49,7 @@
 		<property name="dataSource" ref="dataSource"/>
 		
 		<!-- Entity 탐색 범위 -->
-		<property name="packagesToScan" value="com.DrK.domain"/>
+		<property name="packagesToScan" value="com.DrK.entities"/>
 		
 		<!-- Hibernate 구현체 사용 -->
 		<property name="jpaVendorAdapter">
@@ -68,6 +68,12 @@
             </props>
          </property>
 	</bean>
-	
-	<context:component-scan base-package="com.DrK.service"/>
+    <context:component-scan base-package="com.DrK.service, com.DrK.repositories">
+             <context:include-filter type="annotation"
+                      expression="org.springframework.stereotype.Repository" />
+             <context:include-filter type="annotation"
+                      expression="org.springframework.stereotype.Service" />
+             <context:include-filter type="annotation"
+                      expression="org.springframework.stereotype.Component" />
+    </context:component-scan>
 </beans>
