@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.DrK.domain.UserVO;
+import com.DrK.entities.User;
 import com.DrK.repositories.UserRepository;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ public class UserServicelmpl implements UserService{
 	private UserRepository userRepository;
 
 	@Override
-	public List<UserVO> getList() {
+	public List<User> getList() {
 		return userRepository.findAll();
 	}
 
