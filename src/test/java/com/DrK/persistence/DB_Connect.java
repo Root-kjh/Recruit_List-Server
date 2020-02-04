@@ -1,5 +1,8 @@
 package com.DrK.persistence;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.sql.DataSource;
 
 import org.junit.Test;
@@ -8,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.DrK.entities.Company;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -31,5 +36,12 @@ public class DB_Connect {
 	@Test
 	public void MySQLConnectTest() {
 		log.info(MySQLConnector);
+	}
+	
+	@Test
+	public void MongoFindTest() {
+		Company company=new Company();
+		company.setCompanyName("test_spring");
+		mongoTemplate.insert(company);
 	}
 }
