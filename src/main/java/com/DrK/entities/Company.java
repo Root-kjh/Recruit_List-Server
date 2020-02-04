@@ -6,12 +6,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
-@Document(collection = "company")
 @Data
 public class Company {
 	
 	@Id
-	private String _id;
+	private String id;
 	
 	private String CompanyName;
 }
