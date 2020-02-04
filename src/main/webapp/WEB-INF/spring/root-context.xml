@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
-		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.2.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.11.xsd
+		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-2.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<mongo:db-factory
-		id="mongoDbFactory"
+	<mongo:mongo-client
+		id="mongoClient"
 		host="18.188.97.66"
 		port="27017"
-		dbname="Recruit_List"
+		credentials="Recruit_List:Recruit_List@Recruit_List"
 	/>
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+        <constructor-arg ref="mongoClient"/>
+        <constructor-arg name="databaseName" value="Recruit_List"/>
     </bean>
 	
 	<bean id="dataSource"
@@ -68,12 +71,8 @@
             </props>
          </property>
 	</bean>
-    <context:component-scan base-package="com.DrK.service, com.DrK.repositories">
-             <context:include-filter type="annotation"
-                      expression="org.springframework.stereotype.Repository" />
-             <context:include-filter type="annotation"
-                      expression="org.springframework.stereotype.Service" />
-             <context:include-filter type="annotation"
-                      expression="org.springframework.stereotype.Component" />
-    </context:component-scan>
+
+	<mongo:repositories base-package="com.DrK.repositories" mongo-template-ref="mongoTemplate"/>
+	<jpa:repositories base-package="com.DrK.repositories"/>
+	<context:component-scan base-package="com.DrK.service"/>
 </beans>

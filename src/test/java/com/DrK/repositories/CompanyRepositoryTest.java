@@ -1,5 +1,6 @@
-package com.DrK.service;
+package com.DrK.repositories;
 
+import org.bson.types.ObjectId;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +15,15 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
-public class CompanyServiceTest {
+public class CompanyRepositoryTest {
 
 	@Setter(onMethod_ = {@Autowired})
-	private  CompanyService companyService;
+	private CompanyRepository companyRepository;
 	
 	@Test
-	public void getListTest() {
-		for (Company companyVO : companyService.getList()) {
-			log.info(companyVO);
+	public void getAllList() {
+		for (Company company: companyRepository.findAll()) {
+			log.info(company.getCompanyName());
 		}
 	}
 }
