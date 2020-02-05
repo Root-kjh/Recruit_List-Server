@@ -15,6 +15,6 @@ public class Company {
 	private String CompanyName;
 	private String FoundingYear;
 	private int EmployeesNum;
-	private List<CompanyInfo> CompanyInfos;
-	private List<RecruitmentNotice> RecruitmentNotices;
+	private List<CompanyInfos> CompanyInfos;
+	private List<RecruitmentNotices> RecruitmentNotices;
 }

@@ -11,8 +11,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.DrK.entities.Company;
-import com.DrK.entities.CompanyInfo;
-import com.DrK.entities.RecruitmentNotice;
+import com.DrK.entities.CompanyInfos;
+import com.DrK.entities.RecruitmentNotices;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -31,23 +31,27 @@ public class CompanyListInsertTest {
 		company.setEmployeesNum(50);
 		company.setCompanyName("test");
 		company.setFoundingYear("2020");
-		List<CompanyInfo> companyInfos=new ArrayList<CompanyInfo>();
-		List<RecruitmentNotice> recruitmentNotices=new ArrayList<RecruitmentNotice>();
-		CompanyInfo companyInfo=new CompanyInfo();
+		
+		List<RecruitmentNotices> recruitmentNotices=new ArrayList<RecruitmentNotices>();
+		List<CompanyInfos> CompanyInfos=new ArrayList<CompanyInfos>();
+		CompanyInfos companyInfo=new CompanyInfos();
 		companyInfo.setSiteName("test");
 		companyInfo.setUri("localhost");
-		companyInfos.add(companyInfo);
 		
-		RecruitmentNotice recruitmentNotice=new RecruitmentNotice();
+		RecruitmentNotices recruitmentNotice=new RecruitmentNotices();
 		recruitmentNotice.setSiteName("test");
 		recruitmentNotice.setUri("localhost");
-		RecruitmentNotice recruitmentNotice2=new RecruitmentNotice();
+		RecruitmentNotices recruitmentNotice2=new RecruitmentNotices();
 		recruitmentNotice2.setSiteName("test2");
 		recruitmentNotice2.setUri("localhost2");
+
 		recruitmentNotices.add(recruitmentNotice);
 		recruitmentNotices.add(recruitmentNotice2);
+		CompanyInfos.add(companyInfo);
 		
-		company.setCompanyInfos(companyInfos);
+		company.setCompanyInfos(CompanyInfos);
 		company.setRecruitmentNotices(recruitmentNotices);
+		
+		companyRepository.insert(company);
 	}
 }
