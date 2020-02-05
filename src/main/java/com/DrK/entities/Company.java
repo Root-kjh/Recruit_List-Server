@@ -1,8 +1,8 @@
 package com.DrK.entities;
 
-import javax.persistence.Id;
+import java.util.List;
 
-import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.Id;
 
 import lombok.Data;
 
@@ -13,4 +13,8 @@ public class Company {
 	private String id;
 	
 	private String CompanyName;
+	private String FoundingYear;
+	private int EmployeesNum;
+	private List<CompanyInfo> CompanyInfos;
+	private List<RecruitmentNotice> RecruitmentNotices;
 }

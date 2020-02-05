@@ -37,11 +37,4 @@ public class DB_Connect {
 	public void MySQLConnectTest() {
 		log.info(MySQLConnector);
 	}
-	
-	@Test
-	public void MongoFindTest() {
-		Company company=new Company();
-		company.setCompanyName("test_spring");
-		mongoTemplate.insert(company);
-	}
 }
