@@ -13,7 +13,9 @@ public interface CompanyService {
 	
 	public List<Company> getList(Pageable pageable);
 
-	public List<Company> RecruitCompany();
+	public List<Company> RecruitCompanyGen(int year,int empNum,Pageable pageable);
 	
-	public List<Company> RecruitCompany(Pageable pageable);
+	public List<Company> NotRecruitCompanyGen(int year,int empNum,Pageable pageable);
+	
+	public List<Company> CompanyNameSearch(String companyName,Pageable pageable);
 }

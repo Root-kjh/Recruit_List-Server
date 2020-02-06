@@ -41,9 +41,5 @@ public class User {
 	
 	@OneToMany
 	@JoinColumn(name = "userIdx")
-	private List<UserPortfolio> userPortfolios = new ArrayList<UserPortfolio>();
-	
-	@OneToMany
-	@JoinColumn(name = "userIdx")
 	private List<UserLikeCompany> companies = new ArrayList<UserLikeCompany>();
 }

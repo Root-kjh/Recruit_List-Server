@@ -13,7 +13,7 @@ public class Company {
 	private String id;
 	
 	private String companyName;
-	private String foundingYear;
+	private int foundingYear;
 	private int employeesNum;
 	private List<CompanyInfos> companyInfos;
 	private List<RecruitmentNotices> recruitmentNotices;

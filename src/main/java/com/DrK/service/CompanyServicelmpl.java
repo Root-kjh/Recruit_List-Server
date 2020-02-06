@@ -30,12 +30,19 @@ public class CompanyServicelmpl implements CompanyService{
 	}
 
 	@Override
-	public List<Company> RecruitCompany(){ 
-	return companyRepo.findByRecruitmentNoticesNotNullQuery();
+	public List<Company> RecruitCompanyGen(int year, int empNum, Pageable pageable) {
+		return companyRepo.findByRecruitNoticeExsistGen(year, empNum, pageable).getContent();
 	}
-	
+
 	@Override
-	public List<Company> RecruitCompany(Pageable pageable) {
-		return companyRepo.findByRecruitmentNoticesNotNullQuery(pageable).getContent();
+	public List<Company> NotRecruitCompanyGen(int year, int empNum, Pageable pageable) {
+		return companyRepo.findByRecruitNoticeNotExsistGen(year, empNum, pageable).getContent();
 	}
+
+	@Override
+	public List<Company> CompanyNameSearch(String companyName, Pageable pageable) {
+		return companyRepo.findBycompanyNameContaining(companyName, pageable).getContent();
+	}
+
+
 }

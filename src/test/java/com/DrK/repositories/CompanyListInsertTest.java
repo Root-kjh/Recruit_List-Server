@@ -27,11 +27,11 @@ public class CompanyListInsertTest {
 	
 	@Test
 	public void InsertTest() {
-		for (int i = 40; i < 80; i++) {
+		for (int i = 0; i < 80; i++) {
 			Company company=new Company();
 			company.setEmployeesNum(50);
 			company.setCompanyName("test"+Integer.toString(i));
-			company.setFoundingYear("2020");
+			company.setFoundingYear(2020);
 			
 			List<RecruitmentNotices> recruitmentNotices=new ArrayList<RecruitmentNotices>();
 			List<CompanyInfos> CompanyInfos=new ArrayList<CompanyInfos>();

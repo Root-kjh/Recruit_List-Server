@@ -29,18 +29,26 @@ public class CompanyController {
 		return companyService.getList();
 	}
 	
-	@RequestMapping(path = "/is-recruit")
-	public List<Company> RecruitCompany(){
-		return companyService.RecruitCompany();
-	}
-	
-	@RequestMapping(path ="/paging/{page}",method = RequestMethod.GET )
+	@RequestMapping(path ="/page/{page}",method = RequestMethod.GET )
 	public List<Company> Paging(@PathVariable("page") int page) {
 		return companyService.getList(PageRequest.of(page, 20));
 	}
 	
-	@RequestMapping(path = "/is-recruit/paging/{page}")
-	public List<Company> RecruitCompanyPaging(@PathVariable("page") int page){
-		return companyService.RecruitCompany(PageRequest.of(page, 20));
+	@RequestMapping(path = "/is-recruit/{isRecruitFlag}/employeesnum-min/{employeesNum}/foundingyear-max/{foundingYear}/page/{page}",method = RequestMethod.GET)
+	public List<Company> RecruitCompany(@PathVariable("isRecruitFlag")boolean isRecruitFlag,
+			@PathVariable("employeesNum")int empNum,
+			@PathVariable("foundingYear")int year,
+			@PathVariable("page")int page){
+		if(isRecruitFlag) {
+			return companyService.RecruitCompanyGen(year, empNum, PageRequest.of(page, 20));
+		}else {
+			return companyService.NotRecruitCompanyGen(year, empNum, PageRequest.of(page, 20));
+		}
+	}
+
+	@RequestMapping(path = "/search/companyName/{companyName}/page/{page}",method = RequestMethod.GET)
+	public List<Company> searchByCompanyName(@PathVariable("companyName")String companyName,
+			@PathVariable("page")int page){
+		return companyService.CompanyNameSearch(companyName, PageRequest.of(page, 20));
 	}
 }
