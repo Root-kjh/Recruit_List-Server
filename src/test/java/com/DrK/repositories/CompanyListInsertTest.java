@@ -27,7 +27,7 @@ public class CompanyListInsertTest {
 	
 	@Test
 	public void InsertTest() {
-		for (int i = 0; i < 40; i++) {
+		for (int i = 40; i < 80; i++) {
 			Company company=new Company();
 			company.setEmployeesNum(50);
 			company.setCompanyName("test"+Integer.toString(i));
