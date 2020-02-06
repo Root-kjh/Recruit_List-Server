@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 public class CompanyInfos {
 	
-	private String SiteName;
+	private String siteName;
 	private String uri;
 }

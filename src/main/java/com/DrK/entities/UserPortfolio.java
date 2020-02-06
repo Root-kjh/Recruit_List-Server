@@ -23,12 +23,12 @@ public class UserPortfolio {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idx;
 
-	@Column(name = "UserIdx",nullable = false)
-	private int UserIdx;
+	@Column(name = "userIdx",nullable = false)
+	private int userIdx;
 
-	@Column(name = "PortfolioName",nullable = false,length = 50)
+	@Column(name = "portfolioName",nullable = false,length = 50)
 	private String portfolioName;
 	
-	@Column(name = "PortfolioPath",nullable = false,length = 300)
+	@Column(name = "portfolioPath",nullable = false,length = 300)
 	private String portfolioPath;
 }

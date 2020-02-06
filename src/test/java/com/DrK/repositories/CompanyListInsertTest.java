@@ -27,31 +27,33 @@ public class CompanyListInsertTest {
 	
 	@Test
 	public void InsertTest() {
-		Company company=new Company();
-		company.setEmployeesNum(50);
-		company.setCompanyName("test");
-		company.setFoundingYear("2020");
-		
-		List<RecruitmentNotices> recruitmentNotices=new ArrayList<RecruitmentNotices>();
-		List<CompanyInfos> CompanyInfos=new ArrayList<CompanyInfos>();
-		CompanyInfos companyInfo=new CompanyInfos();
-		companyInfo.setSiteName("test");
-		companyInfo.setUri("localhost");
-		
-		RecruitmentNotices recruitmentNotice=new RecruitmentNotices();
-		recruitmentNotice.setSiteName("test");
-		recruitmentNotice.setUri("localhost");
-		RecruitmentNotices recruitmentNotice2=new RecruitmentNotices();
-		recruitmentNotice2.setSiteName("test2");
-		recruitmentNotice2.setUri("localhost2");
+		for (int i = 0; i < 40; i++) {
+			Company company=new Company();
+			company.setEmployeesNum(50);
+			company.setCompanyName("test"+Integer.toString(i));
+			company.setFoundingYear("2020");
+			
+			List<RecruitmentNotices> recruitmentNotices=new ArrayList<RecruitmentNotices>();
+			List<CompanyInfos> CompanyInfos=new ArrayList<CompanyInfos>();
+			CompanyInfos companyInfo=new CompanyInfos();
+			companyInfo.setSiteName("test");
+			companyInfo.setUri("localhost");
+			
+			RecruitmentNotices recruitmentNotice=new RecruitmentNotices();
+			recruitmentNotice.setSiteName("test");
+			recruitmentNotice.setUri("localhost");
+			RecruitmentNotices recruitmentNotice2=new RecruitmentNotices();
+			recruitmentNotice2.setSiteName("test2");
+			recruitmentNotice2.setUri("localhost2");
 
-		recruitmentNotices.add(recruitmentNotice);
-		recruitmentNotices.add(recruitmentNotice2);
-		CompanyInfos.add(companyInfo);
-		
-		company.setCompanyInfos(CompanyInfos);
-		company.setRecruitmentNotices(recruitmentNotices);
-		
-		companyRepository.insert(company);
+			recruitmentNotices.add(recruitmentNotice);
+			recruitmentNotices.add(recruitmentNotice2);
+			CompanyInfos.add(companyInfo);
+			
+			company.setCompanyInfos(CompanyInfos);
+			company.setRecruitmentNotices(recruitmentNotices);
+			
+			companyRepository.insert(company);
+		}
 	}
 }

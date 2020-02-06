@@ -34,16 +34,16 @@ public class User {
 	private String password;
 	
 	@Column(name="Name", nullable = false, length = 50)
-	private String Email;
+	private String email;
 
 	@Temporal(TemporalType.DATE)
-	private Date SignupDate;
+	private Date signupDate;
 	
 	@OneToMany
-	@JoinColumn(name = "UserIdx")
-	private List<UserPortfolio> UserPortfolios = new ArrayList<UserPortfolio>();
+	@JoinColumn(name = "userIdx")
+	private List<UserPortfolio> userPortfolios = new ArrayList<UserPortfolio>();
 	
 	@OneToMany
-	@JoinColumn(name = "UserIdx")
-	private List<UserLikeCompany> Companies = new ArrayList<UserLikeCompany>();
+	@JoinColumn(name = "userIdx")
+	private List<UserLikeCompany> companies = new ArrayList<UserLikeCompany>();
 }

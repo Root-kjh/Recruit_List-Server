@@ -19,13 +19,13 @@ public class UserLikeCompany {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idx;
 
-	@Column(name = "UserIdx",nullable = false,length = 11)
-	private long UserIdx;
+	@Column(name = "userIdx",nullable = false,length = 11)
+	private long userIdx;
 
-	@Column(name = "CompanyIdx",nullable = false,length = 50)
-	private String CompanyIdx;
+	@Column(name = "companyIdx",nullable = false,length = 50)
+	private String companyIdx;
 	
-	@Column(name = "IsAlert",nullable = false,columnDefinition = "TINYINT",length = 1)
-	private Boolean IsAlert;
+	@Column(name = "isAlert",nullable = false,columnDefinition = "TINYINT",length = 1)
+	private Boolean isAlert;
 }
 	

@@ -12,9 +12,9 @@ public class Company {
 	@Id
 	private String id;
 	
-	private String CompanyName;
-	private String FoundingYear;
-	private int EmployeesNum;
-	private List<CompanyInfos> CompanyInfos;
-	private List<RecruitmentNotices> RecruitmentNotices;
+	private String companyName;
+	private String foundingYear;
+	private int employeesNum;
+	private List<CompanyInfos> companyInfos;
+	private List<RecruitmentNotices> recruitmentNotices;
 }

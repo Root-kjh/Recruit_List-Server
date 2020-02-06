@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class RecruitmentNotice {
 
-	private String SiteName;
+	private String siteName;
 	private String uri;
 }
