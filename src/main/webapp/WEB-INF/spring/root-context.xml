@@ -7,7 +7,9 @@
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
-	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.1.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
@@ -75,6 +77,38 @@
             </props>
          </property>
 	</bean>
+
+	<security:http auto-config="true" use-expressions="true"> 
+		<security:csrf disabled="true"/> 
+		<security:intercept-url pattern="/**" access="permitAll" /> 
+		<security:form-login login-page="/login" authentication-success-handler-ref="loginSuccessHandler" authentication-failure-handler-ref="loginFailureHandler" login-processing-url="/auth" username-parameter="id" password-parameter="pw" /> 
+		<security:logout logout-url="/logout" invalidate-session="true" logout-success-url="/login?status=logout" /> 
+		<security:session-management invalid-session-url="/login"> 
+		<security:concurrency-control max-sessions="1" error-if-maximum-exceeded="false" /> 
+		</security:session-management> 
+	</security:http> 
+	
+	<!-- secured method --> 
+	<security:global-method-security secured-annotations="enabled" /> 
+	
+	<!-- provider --> 
+	<security:authentication-manager> 
+		<security:authentication-provider ref="userAuthHelper" /> 
+		</security:authentication-manager> 
+	<bean id="loginSuccessHandler" class="com.devljh.domain.user.helper.LoginSuccessHandler"> 
+		<property name="defaultTargetUrl" value="/main" /> 
+		<property name="alwaysUseDefaultTargetUrl" value="true" /> 
+	</bean> 
+	<bean id="loginFailureHandler" class="com.devljh.domain.user.helper.LoginFailureHandler"> 
+		<property name="defaultFailureUrl" value="/login?status=fail" /> 
+	</bean> 
+	<bean id="userAuthService" class="com.devljh.domain.user.UserAuthService" /> 
+	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" /> 
+	<bean id="userAuthProvider" class="com.devljh.domain.user.helper.UserAuthProvider"> 
+		<property name="userDetailsService" ref="userAuthService" /> 
+		<property name="passwordEncoder" ref="passwordEncoder" /> 
+	</bean>
+
 
 	<mongo:repositories base-package="com.DrK.repositories"/>
 	<jpa:repositories base-package="com.DrK.repositories"/>
