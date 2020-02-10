@@ -27,7 +27,9 @@
 
     * Java 1.8
 
-    * Spring 5.0.7
+    * Spring 5.2.3
+
+    * Spring-Security 5.2.1
 
     * Junit 5
 
