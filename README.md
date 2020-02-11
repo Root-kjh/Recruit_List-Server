@@ -1,5 +1,5 @@
-# Recruit-List
-산업기능요원 채용 공고 정리 사이트
+# Recruit_List-Server
+산업기능요원 채용정보 리스트 Server
 
 ## 시스템
 
