@@ -23,7 +23,7 @@ public class CompanyController {
 	@Setter(onMethod_ = {@Autowired})
 	private  CompanyService companyService;
 	
-	@RequestMapping(path ="/paging/",method = RequestMethod.GET )
+	@RequestMapping(path ="/",method = RequestMethod.GET )
 	public List<Company> list() {
 		return companyService.getList();
 	}
@@ -45,7 +45,7 @@ public class CompanyController {
 		}
 	}
 
-	@RequestMapping(path = "/search/companyName/{companyName}/page/{page}",method = RequestMethod.GET)
+	@RequestMapping(path = "/search/companyname/{companyName}/page/{page}",method = RequestMethod.GET)
 	public List<Company> searchByCompanyName(@PathVariable("companyName")String companyName,
 			@PathVariable("page")int page){
 		return companyService.CompanyNameSearch(companyName, PageRequest.of(page, 20));

@@ -11,10 +11,10 @@ import com.DrK.entities.Company;
 
 public interface CompanyRepository extends MongoRepository<Company, String>{
 	
-	@Query("{'foundingYear':{$lt:?0},'employeesNum':{$gt:?1}}")
+	@Query("{'foundingYear':{$lte:?0},'employeesNum':{$gte:?1}}")
 	public Page<Company> findByRecruitNoticeNotExsistGen(int year,int empNum,Pageable pageable);
 
-	@Query("{'recruitmentNotices.1':{$exists:true},'foundingYear':{$lt:?0},'employeesNum':{$gt:?1}}")
+	@Query("{'recruitmentNotices.1':{$exists:true},'foundingYear':{$lte:?0},'employeesNum':{$gte:?1}}")
 	public Page<Company> findByRecruitNoticeExsistGen(int year,int empNum,Pageable pageable);
 
 	public Page<Company> findBycompanyNameContaining(String keywork,Pageable pageable);
