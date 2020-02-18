@@ -17,7 +17,7 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<mongo:mongo-client
-		host="127.0.0.1"
+		host="13.125.62.254"
 		port="27017"
 		credentials="Recruit_List:Recruit_List@Recruit_List"
 	/>
@@ -35,7 +35,7 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
 		<property name="url"
-			value="jdbc:mysql://127.0.0.1/Recruit_List"/>
+			value="jdbc:mysql://13.125.62.254/Recruit_List"/>
 		<property name="username" value="Recruit_List"/>
 		<property name="password" value="Recruit_List"/>
 	</bean>
