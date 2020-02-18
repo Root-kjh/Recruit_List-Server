@@ -4,11 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,12 +21,6 @@ public class UserContoller {
 			return "error";
 		if(logout!=null)
 			return "logout";
-		CsrfToken token = (CsrfToken)request.getAttribute(CsrfToken.class.getName());
-		return token.getToken();
-	}
-	
-	@RequestMapping(path="/csrf-token", method = RequestMethod.GET)
-	public @ResponseBody String getCsrf(HttpServletRequest request) {
 		CsrfToken token = (CsrfToken)request.getAttribute(CsrfToken.class.getName());
 		return token.getToken();
 	}
