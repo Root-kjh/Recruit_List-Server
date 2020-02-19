@@ -5,8 +5,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-        <security:http auto-config="true" use-expressions="false">
-            <security:intercept-url pattern="/**" access="ROLE_USER" />
+        <security:http>
+            <security:intercept-url pattern="/**" access="permitAll" />
+        	<security:form-login login-page="/login"/>
         </security:http>
 
     <security:authentication-manager>
