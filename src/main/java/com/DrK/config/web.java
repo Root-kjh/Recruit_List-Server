@@ -7,14 +7,12 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class web extends AbstractAnnotationConfigDispatcherServletInitializer{
-
-	
 	
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		return new Class[] {
-				root.class,
-				DB.class
+				DB.class,
+				root.class
 		};
 	}
 
@@ -27,12 +25,12 @@ public class web extends AbstractAnnotationConfigDispatcherServletInitializer{
 	protected String[] getServletMappings() {
 		return new String[] {"/"};
 	}
-
-	@Bean
-	public Filter characterEncodingFilter() {
-		CharacterEncodingFilter characterEncodingFilter=new CharacterEncodingFilter();
-		characterEncodingFilter.setEncoding("UTF-8");
-		characterEncodingFilter.setForceEncoding(true);
-		return characterEncodingFilter;
+	
+	@Override
+	protected Filter[] getServletFilters() {
+		CharacterEncodingFilter encodingFilter=new CharacterEncodingFilter();
+		encodingFilter.setEncoding("UTF-8");
+		
+		return new Filter[]{encodingFilter};
 	}
 }

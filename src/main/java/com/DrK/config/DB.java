@@ -10,49 +10,44 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
+import org.springframework.data.mongodb.core.SimpleMongoClientDbFactory;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
 @Configuration
 @EnableMongoRepositories(basePackages = {"com.DrK.repositories"})
 @EnableJpaRepositories(basePackages = {"com.DrK.repositories"})
 @EnableTransactionManagement
-public class DB{
+public class DB extends AbstractMongoConfiguration{
 	
 	String host="13.125.62.254";
-	
-	public MongoDbFactory mongoDbFactory() throws Exception{
-	
-		ServerAddress serverAddress=new ServerAddress(host, 27017);
-		MongoCredential mongoCredential=MongoCredential.createCredential("Recruit_List", "Recruit_List", "Recruit_List".toCharArray());
-		
-		MongoClient mongoClient=new MongoClient(serverAddress, Arrays.asList(mongoCredential));
-		
-		SimpleMongoDbFactory simpleMongoDbFactory=new SimpleMongoDbFactory(mongoClient, "Recruit_List");
-		
-		return simpleMongoDbFactory;
-	}
-	
-	@Bean
-	public MongoTemplate mognTemplate() throws Exception {
-		return new MongoTemplate(mongoDbFactory());
+
+	@Override
+	public MongoClient mongoClient() {
+		MongoCredential credential=MongoCredential.createCredential("Recruit_List", "Recruit_List", "Recruit_List".toCharArray());
+		return new MongoClient(new ServerAddress(host, 27017), Arrays.asList(credential));
 	}
 
+	@Override
+	protected String getDatabaseName() {
+		return "Recruit_List";
+	}
+	
 	@Bean
-	public DriverManagerDataSource dataSource() {
-		DriverManagerDataSource datasource=new DriverManagerDataSource("jdbc:mysql://13.125.62.254/Recruit_List", "Recruit_List", "Recruit_List");
-		return datasource;
+	public MongoTemplate mongoTemplate() throws Exception{
+		return new MongoTemplate(mongoClient(), getDatabaseName());
 	}
 	
 	private Properties Properties() {
@@ -67,17 +62,31 @@ public class DB{
 	}
 	
 	@Bean
-	public EntityManagerFactory entityMnagerFactory() {
-		LocalContainerEntityManagerFactoryBean factoryBean=new LocalContainerEntityManagerFactoryBean();
-		factoryBean.setDataSource(dataSource());
-		factoryBean.setPackagesToScan("com.DrK.entities");
-		factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-		factoryBean.setJpaProperties(Properties());
-		return factoryBean.getObject();
+	public DataSource dataSource() {
+		DriverManagerDataSource dataSource=new DriverManagerDataSource();
+		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		dataSource.setUrl("jdbc:mysql://"+host+"/Recruit_List");
+		dataSource.setUsername("Recruit_List");
+		dataSource.setPassword("Recruit_List");
+		return dataSource;
 	}
 	
 	@Bean
-	public JpaTransactionManager transactionManager() {
-		return new JpaTransactionManager(entityMnagerFactory());
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+		HibernateJpaVendorAdapter vendorAdapter=new HibernateJpaVendorAdapter();
+		vendorAdapter.setGenerateDdl(true);
+		
+		LocalContainerEntityManagerFactoryBean factory=new LocalContainerEntityManagerFactoryBean();
+		factory.setJpaVendorAdapter(vendorAdapter);
+		factory.setPackagesToScan("com.DrK.entities");
+		factory.setDataSource(dataSource());
+		return factory;
+	}
+	
+	@Bean
+	public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+		JpaTransactionManager txManager=new JpaTransactionManager();
+		txManager.setEntityManagerFactory(entityManagerFactory);
+		return txManager;
 	}
 }
