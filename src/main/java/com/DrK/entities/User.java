@@ -27,13 +27,13 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idx;
 	
-	@Column(name = "id", nullable = false, length = 50)
-	private String id;
+	@Column(name = "name", nullable = false, length = 50)
+	private String name;
 	
-	@Column(name="password", nullable = false, length = 65)
+	@Column(name="password", nullable = false, length = 128)
 	private String password;
 	
-	@Column(name="Name", nullable = false, length = 50)
+	@Column(name="email", nullable = false, length = 100)
 	private String email;
 
 	@Temporal(TemporalType.DATE)

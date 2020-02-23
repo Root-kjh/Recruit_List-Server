@@ -19,10 +19,4 @@ public class UserServiceTest {
 	@Setter(onMethod_ = {@Autowired})
 	private UserService userService;
 	
-	@Test
-	public void getListTest() {
-		for (User user: userService.getList()) {
-			log.info(user.getId());
-		}
-	}
 }

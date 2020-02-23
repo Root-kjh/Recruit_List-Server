@@ -1,10 +1,10 @@
 package com.DrK.service;
 
-import java.util.List;
-
 import com.DrK.entities.User;
 
 public interface UserService {
-
-	public List<User> getList();
+	
+	public String createToken(String username,String password);
+	
+	public boolean Signup(User user);
 }

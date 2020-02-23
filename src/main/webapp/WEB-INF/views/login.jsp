@@ -1,1 +1,0 @@
-${_csrf.token}

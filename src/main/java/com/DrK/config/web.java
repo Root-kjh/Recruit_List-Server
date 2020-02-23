@@ -31,6 +31,8 @@ public class web extends AbstractAnnotationConfigDispatcherServletInitializer{
 		CharacterEncodingFilter encodingFilter=new CharacterEncodingFilter();
 		encodingFilter.setEncoding("UTF-8");
 		
-		return new Filter[]{encodingFilter};
+		cors cors=new cors();
+		
+		return new Filter[]{encodingFilter, cors};
 	}
 }
