@@ -1,6 +1,7 @@
 package com.DrK.controller;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.DrK.entities.Company;
 import com.DrK.entities.User;
 import com.DrK.service.UserService;
 
@@ -47,5 +49,11 @@ public class UserContoller {
 		user.setPassword((String) params.get("password"));
 		user.setSignupDate(new Date());
 		return UserService.Signup(user);
+	}
+	
+	@RequestMapping(path="/company", method = RequestMethod.GET)
+	public List<Company> list() {
+		
+		return companyService.getList();
 	}
 }

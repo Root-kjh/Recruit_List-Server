@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.DrK.entities.Company;
 import com.DrK.entities.User;
 import com.DrK.repositories.UserRepository;
 
@@ -26,7 +27,6 @@ public class UserServicelmpl implements UserService{
 	@Override
 	public String createToken(String username,String password) {
 		User user=userRepository.findByName(username);
-		System.out.println(user.getName());
 		long curTime=System.currentTimeMillis();
 		if(user.getPassword().equals(password))
 		return Jwts.builder()
@@ -63,6 +63,30 @@ public class UserServicelmpl implements UserService{
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public boolean isLoginUser(String jwt) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<Company> getUserLikeCompany(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean setLikeCompany(String username, String companyId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteLikeCompany(String username, String companyId) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
