@@ -10,6 +10,8 @@ import com.DrK.entities.Company;
 import com.DrK.entities.User;
 import com.DrK.repositories.UserRepository;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.AllArgsConstructor;
@@ -31,7 +33,7 @@ public class UserServicelmpl implements UserService{
 		if(user.getPassword().equals(password))
 		return Jwts.builder()
 				.setHeaderParam("typ", "JWT")
-				.setExpiration(new Date(curTime+36000000))
+				.setExpiration(new Date(curTime+600000))
 				.setIssuedAt(new Date(curTime))
 				.claim("user", user.getName())
 				.signWith(SignatureAlgorithm.HS256, this.generateKey())
@@ -67,14 +69,29 @@ public class UserServicelmpl implements UserService{
 
 	@Override
 	public boolean isLoginUser(String jwt) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			Jws<Claims> cJws=Jwts.parser()
+					.setSigningKey(generateKey())
+					.parseClaimsJws(jwt);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
-	public List<Company> getUserLikeCompany(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Company> getUserLikeCompany(String jwt) {
+		Jws<Claims> cJws=null;
+		try {
+			cJws=Jwts.parser()
+					.setSigningKey(generateKey())
+					.parseClaimsJws(jwt);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String username=(String) cJws.getBody().get("user");
+		return userRepository.findCompaniesByName(username);
 	}
 
 	@Override

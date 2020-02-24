@@ -13,7 +13,7 @@ public interface UserService {
 	
 	public boolean isLoginUser(String jwt);
 	
-	public List<Company> getUserLikeCompany(String username);
+	public List<Company> getUserLikeCompany(String jwt);
 	
 	public boolean setLikeCompany(String username, String companyId);
 	

@@ -4,13 +4,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,8 +57,11 @@ public class UserContoller {
 	}
 	
 	@RequestMapping(path="/company", method = RequestMethod.GET)
-	public List<Company> list() {
-		
-		return companyService.getList();
+	public String list(@RequestHeader(value="jwt",required=true)String jwt) {
+		if(UserService.isLoginUser(jwt)) {
+			return UserService.getUserLikeCompany(jwt).toString();
+		}else {
+			return "login";
+		}
 	}
 }
