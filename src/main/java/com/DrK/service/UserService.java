@@ -11,11 +11,11 @@ public interface UserService {
 	
 	public boolean Signup(User user);
 	
-	public boolean isLoginUser(String jwt);
+	public List<Company> getUserLikeCompany(String jwt) throws Exception;
 	
-	public List<Company> getUserLikeCompany(String jwt);
+	public boolean setLikeCompany(String username, String companyId) throws Exception;
 	
-	public boolean setLikeCompany(String username, String companyId);
+	public boolean deleteLikeCompany(String username, String companyId) throws Exception;
 	
-	public boolean deleteLikeCompany(String username, String companyId);
+	public String getUserName(String jwt) throws Exception;
 }

@@ -22,7 +22,7 @@ public class UserRepositoryTest {
 	@Test
 	public void getListTest() {
 		for (User user: userRepository.findAll()) {
-			log.info(user.getId());
+			log.info(user.getName());
 		}
 	}
 }

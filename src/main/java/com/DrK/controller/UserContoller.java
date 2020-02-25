@@ -14,6 +14,7 @@ import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,11 +58,37 @@ public class UserContoller {
 	}
 	
 	@RequestMapping(path="/company", method = RequestMethod.GET)
-	public String list(@RequestHeader(value="jwt",required=true)String jwt) {
-		if(UserService.isLoginUser(jwt)) {
-			return UserService.getUserLikeCompany(jwt).toString();
-		}else {
-			return "login";
+	public List<Company> list(@RequestHeader(value="jwt",required=true)String jwt) {
+		try {
+			return UserService.getUserLikeCompany(jwt);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	@RequestMapping(path="/company/{companyId}",method = RequestMethod.PUT)
+	public boolean setCompany(
+			@RequestHeader(value="jwt",required=true)String jwt,
+			@PathVariable("companyId") String companyId) {
+		try {
+			String username=UserService.getUserName(jwt);
+			UserService.setLikeCompany(username, companyId);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	@RequestMapping(path="/company/{companyId}",method = RequestMethod.DELETE)
+	public boolean delCompany(
+			@RequestHeader(value="jwt",required=true)String jwt,
+			@PathVariable("companyId") String companyId) {
+		try {
+			String username=UserService.getUserName(jwt);
+			UserService.deleteLikeCompany(username, companyId);
+			return true;
+		} catch (Exception e) {
+			return false;
 		}
 	}
 }

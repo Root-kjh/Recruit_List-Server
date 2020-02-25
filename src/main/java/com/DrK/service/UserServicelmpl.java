@@ -1,13 +1,18 @@
 package com.DrK.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.DrK.entities.Company;
 import com.DrK.entities.User;
+import com.DrK.entities.UserLikeCompany;
+import com.DrK.repositories.CompanyRepository;
+import com.DrK.repositories.UserLikeCompanyRepository;
 import com.DrK.repositories.UserRepository;
 
 import io.jsonwebtoken.Claims;
@@ -26,6 +31,12 @@ public class UserServicelmpl implements UserService{
 	@Setter(onMethod_ = {@Autowired})
 	private UserRepository userRepository;
 
+	@Setter(onMethod_ = {@Autowired})
+	private UserLikeCompanyRepository UserLikeCompanyRepository;
+	
+	@Setter(onMethod_ = {@Autowired})
+	private CompanyRepository CompanyRepository;
+	
 	@Override
 	public String createToken(String username,String password) {
 		User user=userRepository.findByName(username);
@@ -68,42 +79,53 @@ public class UserServicelmpl implements UserService{
 	}
 
 	@Override
-	public boolean isLoginUser(String jwt) {
+	public List<Company> getUserLikeCompany(String jwt) throws Exception {
+		Jws<Claims> cJws=Jwts.parser()
+				.setSigningKey(generateKey())
+				.parseClaimsJws(jwt);
+		String username=(String) cJws.getBody().get("user");
+		User user=userRepository.findByName(username);
+		List<String> companyIdxs = new ArrayList<String>();
+		for (UserLikeCompany userLikeCompany : UserLikeCompanyRepository.findByUserIdx(user.getIdx())) {
+			companyIdxs.add(userLikeCompany.getCompanyIdx());
+		}
+		return CompanyRepository.findByIdIn(companyIdxs);
+	}
+
+	@Override
+	public boolean setLikeCompany(String username, String companyId) throws Exception{
 		try {
-			Jws<Claims> cJws=Jwts.parser()
-					.setSigningKey(generateKey())
-					.parseClaimsJws(jwt);
+			User user=userRepository.findByName(username);
+			UserLikeCompany userCompany=new UserLikeCompany();
+			userCompany.setCompanyIdx(companyId);
+			userCompany.setUserIdx(user.getIdx());
+			UserLikeCompanyRepository.save(userCompany);
 			return true;
-		} catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
 	}
 
 	@Override
-	public List<Company> getUserLikeCompany(String jwt) {
-		Jws<Claims> cJws=null;
+	@Transactional
+	public boolean deleteLikeCompany(String username, String companyId) throws Exception{
 		try {
-			cJws=Jwts.parser()
-					.setSigningKey(generateKey())
-					.parseClaimsJws(jwt);
-		} catch (Exception e) {
+			User user=userRepository.findByName(username);
+			UserLikeCompanyRepository.deleteByUserIdxAndCompanyIdx(user.getIdx(), companyId);
+			return true;
+		}catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
-		String username=(String) cJws.getBody().get("user");
-		return userRepository.findCompaniesByName(username);
 	}
 
 	@Override
-	public boolean setLikeCompany(String username, String companyId) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean deleteLikeCompany(String username, String companyId) {
-		// TODO Auto-generated method stub
-		return false;
+	public String getUserName(String jwt) throws Exception{
+		Jws<Claims> cJws=Jwts.parser()
+				.setSigningKey(generateKey())
+				.parseClaimsJws(jwt);
+		return((String) cJws.getBody().get("user"));
 	}
 
 }

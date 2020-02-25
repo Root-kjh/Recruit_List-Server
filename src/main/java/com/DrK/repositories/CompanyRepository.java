@@ -18,4 +18,6 @@ public interface CompanyRepository extends MongoRepository<Company, String>{
 	public Page<Company> findByRecruitNoticeExsistGen(int year,int empNum,Pageable pageable);
 
 	public Page<Company> findBycompanyNameContaining(String keywork,Pageable pageable);
+	
+	public List<Company> findByIdIn(List<String> ids);
 }

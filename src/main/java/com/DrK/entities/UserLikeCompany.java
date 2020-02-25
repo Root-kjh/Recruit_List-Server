@@ -25,7 +25,5 @@ public class UserLikeCompany {
 	@Column(name = "companyIdx",nullable = false,length = 50)
 	private String companyIdx;
 	
-	@Column(name = "isAlert",nullable = false,columnDefinition = "TINYINT",length = 1)
-	private Boolean isAlert;
 }
 	
