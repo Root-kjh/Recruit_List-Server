@@ -29,8 +29,6 @@
 
     * Spring 5.2.3
 
-    * Spring-Security 5.2.1
-
     * Junit 5
 
     * JPA, Hibernate
