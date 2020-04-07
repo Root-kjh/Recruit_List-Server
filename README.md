@@ -1,40 +1,39 @@
-# Recruit-List
-산업기능요원 채용 공고 정리 사이트
+# 프로젝트 계획
+---
 
-## 시스템
+## 서비스 정리
 
-1. 병무청에서 병역 지정업체 검색
+* Company
 
-2. 업체정보&채용정보를 채용관련 사이트에서 크롤링
+    * 병무청에서 병역채용이 가능한 회사 리스트를 크롤링 해 DB Update
 
-### 스케줄링 주기
+    * 해당 회사에 대한 정보&채용정보 각종 채용정보 사이트&회사 홈페이지 에서 크롤링
 
-  매주 일요일 자정
+* User
 
-## 기술스택
+    * 사용자가 관심있어 하는 회사 저장
 
-  Server
-    
-    * AWS EC2
+## DB 설계
 
-    * MongoDB 4.0.16
+* Company
 
-    * MariaDB 10.4
 
-  BackEnd
+각 채용정보 사이트에 내용이 없을경우, Null값으로 들어가는 컬럼이 많고, 대부분 상시채용인 병역채용 특성상 데이터의 수정이 많지 않을 것으로 예상
 
-    * Java 1.8
+MongoDB 사용
 
-    * Spring 5.2.3
+* User
 
-    * Junit 5
+정보 업데이트의 빈도 수를 예상할 수 없고, 데이터의 구조가 정해져 있으며 정규화 필요.
 
-    * JPA, Hibernate
+MySQL 사용
 
-  FrontEnd
+## 크롤링
 
-    React
+* Javascript를 사용해 데이터가 동적으로 변화 될 수 있음 -> Selenium 사용
 
-## 저작권
+* Selenium을 사용해봤으며, 가장 익숙한 언어 -> Python 사용
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/2.0/kr/"><img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/2.0/kr/88x31.png" /></a><br />이 저작물은 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/2.0/kr/">크리에이티브 커먼즈 저작자표시-비영리-변경금지 2.0 대한민국 라이선스</a>에 따라 이용할 수 있습니다.
+## 인증 관련
+
+* jwt 사용
