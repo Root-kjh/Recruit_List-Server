@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.DrK.entities.Company;
-import com.DrK.repositories.CompanyRepository;
+import com.DrK.Entities.Company;
+import com.DrK.Repositories.CompanyRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;

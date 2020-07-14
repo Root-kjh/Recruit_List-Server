@@ -1,4 +1,4 @@
-package com.DrK.config;
+package com.DrK.Security;
 
 import java.io.IOException;
 
@@ -10,14 +10,14 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
-public class cors implements Filter {
+public class Cors implements Filter {
 
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
 		HttpServletResponse response = (HttpServletResponse) res; 
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT"); 
+		response.setHeader("Access-Control-Allow-Methods", "*"); 
 		response.setHeader("Access-Control-Max-Age", "3600"); 
-		response.setHeader("Access-Control-Allow-Headers", "jwt, Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization, x-csrf-token"); 
+		response.setHeader("Access-Control-Allow-Headers", "jwt, x-csrf-token"); 
 		chain.doFilter(req, res); 
     }
     public void init(FilterConfig filterConfig) {}

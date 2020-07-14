@@ -1,24 +1,25 @@
-package com.DrK.config;
+package com.DrK.Config;
 
 import javax.servlet.Filter;
 
-import org.springframework.context.annotation.Bean;
+import com.DrK.Security.Cors;
+
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class web extends AbstractAnnotationConfigDispatcherServletInitializer{
+public class Web extends AbstractAnnotationConfigDispatcherServletInitializer{
 	
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		return new Class[] {
 				DB.class,
-				root.class
+				Root.class
 		};
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class[] {servlet.class};
+		return new Class[] {Servlet.class};
 	}
 
 	@Override
@@ -31,7 +32,7 @@ public class web extends AbstractAnnotationConfigDispatcherServletInitializer{
 		CharacterEncodingFilter encodingFilter=new CharacterEncodingFilter();
 		encodingFilter.setEncoding("UTF-8");
 		
-		cors cors=new cors();
+		Cors cors=new Cors();
 		
 		return new Filter[]{encodingFilter, cors};
 	}

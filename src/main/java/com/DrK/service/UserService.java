@@ -2,8 +2,8 @@ package com.DrK.service;
 
 import java.util.List;
 
-import com.DrK.entities.Company;
-import com.DrK.entities.User;
+import com.DrK.Entities.Company;
+import com.DrK.Entities.User;
 
 public interface UserService {
 	

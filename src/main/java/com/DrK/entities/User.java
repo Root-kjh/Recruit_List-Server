@@ -1,4 +1,4 @@
-package com.DrK.entities;
+package com.DrK.Entities;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 import lombok.Data;
 
 @Data
-@Entity
+@Entity(name = "User")
 @Table(name = "User")
 public class User {
 	

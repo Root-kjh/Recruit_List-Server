@@ -1,10 +1,10 @@
-package com.DrK.entities;
+package com.DrK.Entities;
 
 import lombok.Data;
 
 @Data
-public class RecruitmentNotices {
-
+public class CompanyInfo {
+	
 	private String siteName;
 	private String uri;
 }

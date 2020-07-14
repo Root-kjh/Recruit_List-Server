@@ -1,10 +1,10 @@
-package com.DrK.repositories;
+package com.DrK.Repositories;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.DrK.entities.UserLikeCompany;
+import com.DrK.Entities.UserLikeCompany;
 
 public interface UserLikeCompanyRepository extends JpaRepository<UserLikeCompany, Integer>{
 

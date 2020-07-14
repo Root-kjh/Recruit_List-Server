@@ -1,4 +1,4 @@
-package com.DrK.entities;
+package com.DrK.Entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.DrK.entities.Company;
-import com.DrK.entities.User;
-import com.DrK.entities.UserLikeCompany;
-import com.DrK.repositories.CompanyRepository;
-import com.DrK.repositories.UserLikeCompanyRepository;
-import com.DrK.repositories.UserRepository;
+import com.DrK.Entities.Company;
+import com.DrK.Entities.User;
+import com.DrK.Entities.UserLikeCompany;
+import com.DrK.Repositories.CompanyRepository;
+import com.DrK.Repositories.UserLikeCompanyRepository;
+import com.DrK.Repositories.UserRepository;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;

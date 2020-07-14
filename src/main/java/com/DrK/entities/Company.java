@@ -1,4 +1,4 @@
-package com.DrK.entities;
+package com.DrK.Entities;
 
 import java.util.List;
 
@@ -15,6 +15,6 @@ public class Company {
 	private String companyName;
 	private int foundingYear;
 	private int employeesNum;
-	private List<CompanyInfos> companyInfos;
-	private List<RecruitmentNotices> recruitmentNotices;
+	private List<CompanyInfo> companyInfo;
+	private List<RecruitmentNotice> recruitmentNotice;
 }

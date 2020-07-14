@@ -10,16 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.DrK.entities.Company;
+import com.DrK.Entities.Company;
 import com.DrK.service.CompanyService;
 
 import lombok.Setter;
-import lombok.extern.log4j.Log4j;
 
 @RestController
 @RequestMapping("/company")
 @CrossOrigin("*")
-@Log4j
 public class CompanyController {
 
 	@Setter(onMethod_ = {@Autowired})

@@ -1,5 +1,7 @@
 package com.DrK.persistence;
 
+import static org.junit.Assert.assertNotNull;
+
 import javax.sql.DataSource;
 
 import org.junit.Test;
@@ -26,10 +28,12 @@ public class DB_Connect {
 	@Test
 	public void test_connection() {
 		log.info(mongoTemplate);
+		assertNotNull(mongoTemplate);
 	}
 	
 	@Test
 	public void MySQLConnectTest() {
 		log.info(MySQLConnector);
+		assertNotNull(MySQLConnector);
 	}
 }

@@ -1,4 +1,4 @@
-package com.DrK.repositories;
+package com.DrK.Repositories;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
-import com.DrK.entities.Company;
+import com.DrK.Entities.Company;
 
 public interface CompanyRepository extends MongoRepository<Company, String>{
 	

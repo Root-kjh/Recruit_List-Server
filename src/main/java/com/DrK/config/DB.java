@@ -1,4 +1,4 @@
-package com.DrK.config;
+package com.DrK.Config;
 
 import java.util.Arrays;
 import java.util.Properties;
@@ -19,25 +19,22 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.mongodb.MongoClient;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
-@EnableMongoRepositories(basePackages = {"com.DrK.repositories"})
-@EnableJpaRepositories(basePackages = {"com.DrK.repositories"})
+@EnableMongoRepositories(basePackages = {"com.DrK.Repositories"})
+@EnableJpaRepositories(basePackages = {"com.DrK.Repositories"})
 @EnableTransactionManagement
 public class DB extends AbstractMongoConfiguration{
 	
-	String host="13.125.62.254";
+	String host="kjh-projects.kro.kr";
 
 	@Override
 	public MongoClient mongoClient() {
-		MongoCredential credential=MongoCredential.createCredential("Recruit_List", "Recruit_List", "Recruit_List".toCharArray());
-		return new MongoClient(new ServerAddress(host, 27017), Arrays.asList(credential));
+		return new MongoClient(host);
 	}
-
+s
 	@Override
 	protected String getDatabaseName() {
 		return "Recruit_List";
@@ -46,17 +43,6 @@ public class DB extends AbstractMongoConfiguration{
 	@Bean
 	public MongoTemplate mongoTemplate() throws Exception{
 		return new MongoTemplate(mongoClient(), getDatabaseName());
-	}
-	
-	private Properties Properties() {
-		Properties properties=new Properties();
-		properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
-		properties.put("hibernate.show_sql", "true");
-		properties.put("hibernate.format_sql", "true");
-		properties.put("hibernate.user_sql_comments", "true");
-		properties.put("hibernate.id.new_generator_mappings", "true");
-		properties.put("hibernate.hbm2ddl.auto", "none");
-		return properties;
 	}
 	
 	@Bean
@@ -76,7 +62,7 @@ public class DB extends AbstractMongoConfiguration{
 		
 		LocalContainerEntityManagerFactoryBean factory=new LocalContainerEntityManagerFactoryBean();
 		factory.setJpaVendorAdapter(vendorAdapter);
-		factory.setPackagesToScan("com.DrK.entities");
+		factory.setPackagesToScan("com.DrK.Entities");
 		factory.setDataSource(dataSource());
 		return factory;
 	}
