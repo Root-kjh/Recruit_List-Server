@@ -1,4 +1,4 @@
-package com.DrK.service;
+package com.DrK.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.DrK.Config.JWT.JwtTokenProvider;
+import com.DrK.DTO.SignupDTO;
 import com.DrK.Entities.Company;
 import com.DrK.Entities.User;
 import com.DrK.Entities.UserLikeCompany;
@@ -37,35 +39,25 @@ public class UserServicelmpl implements UserService{
 	@Setter(onMethod_ = {@Autowired})
 	private CompanyRepository CompanyRepository;
 	
+	private final JwtTokenProvider jwtTokenProvider;
+
 	@Override
-	public String createToken(String username,String password) {
-		User user=userRepository.findByName(username);
-		long curTime=System.currentTimeMillis();
+	public String createToken(String userName,String password) {
+		User user=userRepository.findByName(userName);
 		if(user.getPassword().equals(password))
-		return Jwts.builder()
-				.setHeaderParam("typ", "JWT")
-				.setExpiration(new Date(curTime+600000))
-				.setIssuedAt(new Date(curTime))
-				.claim("user", user.getName())
-				.signWith(SignatureAlgorithm.HS256, this.generateKey())
-				.compact();
+			return jwtTokenProvider.createToken(userName);
 		else
 			return "fail";
 	}
-	
-	private byte[] generateKey() {
-		byte[] key=null;
-		try {
-			key="DrK".getBytes("UTF-8");
-		} catch (Exception e) {
-			log.error(e);
-		}
-		return key;
-	}
 
 	@Override
-	public boolean Signup(User user) {
+	public boolean Signup(SignupDTO signupDTO) {
 		try {
+			User user = new User();
+			user.setEmail(signupDTO.getEmail());
+			user.setName(signupDTO.getUserName());
+			user.setPassword(signupDTO.getPassword());
+			user.setSignupDate(new Date());
 			if (userRepository.findByName(user.getName())==null) {
 				userRepository.save(user);
 				return true;
@@ -79,12 +71,8 @@ public class UserServicelmpl implements UserService{
 	}
 
 	@Override
-	public List<Company> getUserLikeCompany(String jwt) throws Exception {
-		Jws<Claims> cJws=Jwts.parser()
-				.setSigningKey(generateKey())
-				.parseClaimsJws(jwt);
-		String username=(String) cJws.getBody().get("user");
-		User user=userRepository.findByName(username);
+	public List<Company> getUserLikeCompany(String userName) throws Exception {
+		User user=userRepository.findByName(userName);
 		List<String> companyIdxs = new ArrayList<String>();
 		for (UserLikeCompany userLikeCompany : UserLikeCompanyRepository.findByUserIdx(user.getIdx())) {
 			companyIdxs.add(userLikeCompany.getCompanyIdx());
@@ -93,9 +81,9 @@ public class UserServicelmpl implements UserService{
 	}
 
 	@Override
-	public boolean setLikeCompany(String username, String companyId) throws Exception{
+	public boolean setLikeCompany(String userName, String companyId) throws Exception{
 		try {
-			User user=userRepository.findByName(username);
+			User user=userRepository.findByName(userName);
 			UserLikeCompany userCompany=new UserLikeCompany();
 			userCompany.setCompanyIdx(companyId);
 			userCompany.setUserIdx(user.getIdx());
@@ -118,14 +106,6 @@ public class UserServicelmpl implements UserService{
 			e.printStackTrace();
 			return false;
 		}
-	}
-
-	@Override
-	public String getUserName(String jwt) throws Exception{
-		Jws<Claims> cJws=Jwts.parser()
-				.setSigningKey(generateKey())
-				.parseClaimsJws(jwt);
-		return((String) cJws.getBody().get("user"));
 	}
 
 }

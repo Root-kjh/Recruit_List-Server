@@ -1,4 +1,4 @@
-package com.DrK.service;
+package com.DrK.Service;
 
 import java.util.List;
 
@@ -8,13 +8,11 @@ import com.DrK.Entities.Company;
 
 public interface CompanyService {
 
-	public List<Company> getList();
+	public List<Company> getAllCompanyList();
 	
-	public List<Company> getList(Pageable pageable);
+	public List<Company> getCompanyList(int page);
 
-	public List<Company> RecruitCompanyGen(int year,int empNum,Pageable pageable);
+	public List<Company> getCompanyFilterd(boolean isRecruit, int year,int empNum, int page);
 	
-	public List<Company> NotRecruitCompanyGen(int year,int empNum,Pageable pageable);
-	
-	public List<Company> CompanyNameSearch(String companyName,Pageable pageable);
+	public List<Company> companyNameSearch(String companyName, int page);
 }

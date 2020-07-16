@@ -1,21 +1,19 @@
-package com.DrK.service;
+package com.DrK.Service;
 
 import java.util.List;
 
+import com.DrK.DTO.SignupDTO;
 import com.DrK.Entities.Company;
-import com.DrK.Entities.User;
 
 public interface UserService {
 	
-	public String createToken(String username,String password);
+	public String createToken(String userName,String password);
 	
-	public boolean Signup(User user);
+	public boolean Signup(SignupDTO signupDTO);
 	
-	public List<Company> getUserLikeCompany(String jwt) throws Exception;
+	public List<Company> getUserLikeCompany(String userName) throws Exception;
 	
-	public boolean setLikeCompany(String username, String companyId) throws Exception;
+	public boolean setLikeCompany(String userName, String companyId) throws Exception;
 	
-	public boolean deleteLikeCompany(String username, String companyId) throws Exception;
-	
-	public String getUserName(String jwt) throws Exception;
+	public boolean deleteLikeCompany(String userName, String companyId) throws Exception;
 }

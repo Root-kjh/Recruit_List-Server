@@ -2,8 +2,6 @@ package com.DrK.Config;
 
 import javax.servlet.Filter;
 
-import com.DrK.Security.Cors;
-
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -24,7 +22,7 @@ public class Web extends AbstractAnnotationConfigDispatcherServletInitializer{
 
 	@Override
 	protected String[] getServletMappings() {
-		return new String[] {"/"};
+		return new String[] {"/recruit-list"};
 	}
 	
 	@Override
@@ -32,8 +30,6 @@ public class Web extends AbstractAnnotationConfigDispatcherServletInitializer{
 		CharacterEncodingFilter encodingFilter=new CharacterEncodingFilter();
 		encodingFilter.setEncoding("UTF-8");
 		
-		Cors cors=new Cors();
-		
-		return new Filter[]{encodingFilter, cors};
+		return new Filter[]{encodingFilter};
 	}
 }

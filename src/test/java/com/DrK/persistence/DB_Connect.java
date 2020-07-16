@@ -15,7 +15,7 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {com.DrK.config.root.class, com.DrK.config.DB.class})
+@ContextConfiguration(classes = {com.DrK.Config.Root.class, com.DrK.Config.DB.class})
 @Log4j
 public class DB_Connect {
 

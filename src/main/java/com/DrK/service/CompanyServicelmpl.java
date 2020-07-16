@@ -1,9 +1,9 @@
-package com.DrK.service;
+package com.DrK.Service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.DrK.Entities.Company;
@@ -20,28 +20,23 @@ public class CompanyServicelmpl implements CompanyService{
 	private CompanyRepository companyRepo;
 	
 	@Override
-	public List<Company> getList() {
+	public List<Company> getAllCompanyList() {
 		return companyRepo.findAll();
 	}
 
 	@Override
-	public List<Company> getList(Pageable pageable) {
-		return companyRepo.findAll(pageable).getContent();
+	public List<Company> getCompanyList(int page) {
+		return companyRepo.findAll(PageRequest.of(page, 20)).getContent();
 	}
 
 	@Override
-	public List<Company> RecruitCompanyGen(int year, int empNum, Pageable pageable) {
-		return companyRepo.findByRecruitNoticeExsistGen(year, empNum, pageable).getContent();
+	public List<Company> getCompanyFilterd(boolean isRecruit, int year,int empNum, int page) {
+		return null;
 	}
 
 	@Override
-	public List<Company> NotRecruitCompanyGen(int year, int empNum, Pageable pageable) {
-		return companyRepo.findByRecruitNoticeNotExsistGen(year, empNum, pageable).getContent();
-	}
-
-	@Override
-	public List<Company> CompanyNameSearch(String companyName, Pageable pageable) {
-		return companyRepo.findBycompanyNameContaining(companyName, pageable).getContent();
+	public List<Company> companyNameSearch(String companyName, int page) {
+		return companyRepo.findBycompanyNameContaining(companyName, PageRequest.of(page, 20)).getContent();
 	}
 
 

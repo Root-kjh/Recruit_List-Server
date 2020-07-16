@@ -28,13 +28,14 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 @EnableTransactionManagement
 public class DB extends AbstractMongoConfiguration{
 	
-	String host="kjh-projects.kro.kr";
+	// String host="kjh-projects.kro.kr";
+	String host="localhost";
 
 	@Override
 	public MongoClient mongoClient() {
 		return new MongoClient(host);
 	}
-s
+
 	@Override
 	protected String getDatabaseName() {
 		return "Recruit_List";
@@ -50,8 +51,8 @@ s
 		DriverManagerDataSource dataSource=new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 		dataSource.setUrl("jdbc:mysql://"+host+"/Recruit_List");
-		dataSource.setUsername("Recruit_List");
-		dataSource.setPassword("Recruit_List");
+		dataSource.setUsername("root");
+		dataSource.setPassword("test");
 		return dataSource;
 	}
 	
