@@ -28,10 +28,10 @@ public class CompanyServiceTest {
 //		}
 //	}
 	
-	@Test
-	public void CompanyPagingTest() {
-		for (Company company: companyService.getList(PageRequest.of(0, 20))) {
-			log.info(company.getCompanyName());
-		}
-	}
+	// @Test
+	// public void CompanyPagingTest() {
+	// 	for (Company company: companyService.getList(PageRequest.of(0, 20))) {
+	// 		log.info(company.getCompanyName());
+	// 	}
+	// }
 }

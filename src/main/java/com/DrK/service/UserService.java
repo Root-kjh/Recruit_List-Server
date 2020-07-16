@@ -2,12 +2,13 @@ package com.DrK.Service;
 
 import java.util.List;
 
+import com.DrK.DTO.SigninDTO;
 import com.DrK.DTO.SignupDTO;
 import com.DrK.Entities.Company;
 
 public interface UserService {
 	
-	public String createToken(String userName,String password);
+	public String createToken(SigninDTO signinDTO);
 	
 	public boolean Signup(SignupDTO signupDTO);
 	

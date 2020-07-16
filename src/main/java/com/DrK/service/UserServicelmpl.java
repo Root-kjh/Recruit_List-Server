@@ -5,10 +5,12 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.DrK.Config.JWT.JwtTokenProvider;
+import com.DrK.DTO.SigninDTO;
 import com.DrK.DTO.SignupDTO;
 import com.DrK.Entities.Company;
 import com.DrK.Entities.User;
@@ -17,35 +19,31 @@ import com.DrK.Repositories.CompanyRepository;
 import com.DrK.Repositories.UserLikeCompanyRepository;
 import com.DrK.Repositories.UserRepository;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.AllArgsConstructor;
-import lombok.Setter;
-import lombok.extern.log4j.Log4j;
 
 @Service
 @AllArgsConstructor
-@Log4j
 public class UserServicelmpl implements UserService{
 	
-	@Setter(onMethod_ = {@Autowired})
+	@Autowired
 	private UserRepository userRepository;
 
-	@Setter(onMethod_ = {@Autowired})
+	@Autowired
 	private UserLikeCompanyRepository UserLikeCompanyRepository;
 	
-	@Setter(onMethod_ = {@Autowired})
+	@Autowired
 	private CompanyRepository CompanyRepository;
 	
 	private final JwtTokenProvider jwtTokenProvider;
 
+	private final PasswordEncoder passwordEncoder;
+
 	@Override
-	public String createToken(String userName,String password) {
-		User user=userRepository.findByName(userName);
-		if(user.getPassword().equals(password))
-			return jwtTokenProvider.createToken(userName);
+	public String createToken(SigninDTO signinDTO) {
+		User user=userRepository.findByName(signinDTO.getUserName());
+		if(user!=null && 
+				passwordEncoder.matches(signinDTO.getPassword(), user.getPassword()))
+			return jwtTokenProvider.createToken(signinDTO.getUserName());
 		else
 			return "fail";
 	}
@@ -56,7 +54,7 @@ public class UserServicelmpl implements UserService{
 			User user = new User();
 			user.setEmail(signupDTO.getEmail());
 			user.setName(signupDTO.getUserName());
-			user.setPassword(signupDTO.getPassword());
+			user.setPassword(passwordEncoder.encode(signupDTO.getPassword()));
 			user.setSignupDate(new Date());
 			if (userRepository.findByName(user.getName())==null) {
 				userRepository.save(user);

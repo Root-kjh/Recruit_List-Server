@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.DrK.DTO.CompanyFilterDTO;
 import com.DrK.Entities.Company;
 import com.DrK.Repositories.CompanyRepository;
 
@@ -30,7 +31,7 @@ public class CompanyServicelmpl implements CompanyService{
 	}
 
 	@Override
-	public List<Company> getCompanyFilterd(boolean isRecruit, int year,int empNum, int page) {
+	public List<Company> getCompanyFilterd(CompanyFilterDTO companyFilterDTO) {
 		return null;
 	}
 
