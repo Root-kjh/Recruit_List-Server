@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.DrK.Config.UrlConfig;
 import com.DrK.DTO.CompanyFilterDTO;
-import com.DrK.Entities.Company;
+import com.DrK.Entities.CompanyEntity;
 import com.DrK.Service.CompanyService;
 
 import lombok.Setter;
@@ -25,17 +25,17 @@ public class CompanyController {
 	private  CompanyService companyService;
 		
 	@RequestMapping(path = UrlConfig.Company.show ,method = RequestMethod.GET )
-	public List<Company> Paging(@PathVariable int page) {
+	public List<CompanyEntity> Paging(@PathVariable int page) {
 		return companyService.getCompanyList(page);
 	}
 	
 	@RequestMapping(path = UrlConfig.Company.filterCompany ,method = RequestMethod.GET)
-	public List<Company> RecruitCompany(@RequestBody CompanyFilterDTO companyFilterDTO){
+	public List<CompanyEntity> RecruitCompany(@RequestBody CompanyFilterDTO companyFilterDTO){
 		return companyService.getCompanyFilterd(companyFilterDTO);
 	}
 
 	@RequestMapping(path = UrlConfig.Company.searchCompany ,method = RequestMethod.GET)
-	public List<Company> searchByCompanyName(
+	public List<CompanyEntity> searchByCompanyName(
 			@PathVariable String companyName,
 			@PathVariable int page){
 		return companyService.companyNameSearch(companyName, page);

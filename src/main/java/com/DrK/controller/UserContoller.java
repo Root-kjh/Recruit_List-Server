@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.DrK.Config.UrlConfig;
 import com.DrK.DTO.SigninDTO;
 import com.DrK.DTO.SignupDTO;
-import com.DrK.Entities.Company;
+import com.DrK.Entities.CompanyEntity;
 import com.DrK.Service.UserService;
 
 import lombok.Setter;
@@ -42,7 +42,7 @@ public class UserContoller {
 	}
 	
 	@RequestMapping(path=UrlConfig.User.getLikeCompany , method = RequestMethod.GET)
-	public List<Company> getLikeCompany(Authentication authentication) {
+	public List<CompanyEntity> getLikeCompany(Authentication authentication) {
 		try {
 			// authentication.getPrincipal();
 			// return UserService.getUserLikeCompany();

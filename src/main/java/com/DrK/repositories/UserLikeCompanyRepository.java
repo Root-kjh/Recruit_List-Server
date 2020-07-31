@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.DrK.Entities.UserLikeCompany;
+import com.DrK.Entities.UserLikeCompanyEntity;
 
-public interface UserLikeCompanyRepository extends JpaRepository<UserLikeCompany, Integer>{
+public interface UserLikeCompanyRepository extends JpaRepository<UserLikeCompanyEntity, Integer>{
 
 	public void deleteByUserIdxAndCompanyIdx(long userIdx, String companyIdx);
 	
-	public List<UserLikeCompany> findByUserIdx(long userIdx);
+	public List<UserLikeCompanyEntity> findByUserIdx(long userIdx);
 }

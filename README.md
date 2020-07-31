@@ -51,4 +51,4 @@
 
 3. filterCompany(/company/filter)
 
-* POST : isRecruting, foundingYear, employeesNum
+* POST : isRecruting, foundingYear, employeesNum, page

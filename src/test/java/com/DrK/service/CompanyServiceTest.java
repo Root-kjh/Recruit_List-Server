@@ -1,37 +1,34 @@
 package com.DrK.service;
 
+import java.util.List;
+
+import com.DrK.Config.ServiceTest;
+import com.DrK.Entities.CompanyEntity;
+
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.DrK.Entities.Company;
-import com.DrK.Service.CompanyService;
-
-import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {com.DrK.Config.Root.class, com.DrK.Config.DB.class})
 @Log4j
-public class CompanyServiceTest {
+public class CompanyServiceTest extends ServiceTest{
+	
+	@Test
+	public void getCompanyTest() {
+		
+		for(int i=0;i<40;i++){
+			this.makeTestCompany(testlib)
+		}
+		List<CompanyEntity> companies = this.companyService.getAllCompanyList();
+		
+	}
 
-	@Setter(onMethod_ = {@Autowired})
-	private  CompanyService companyService;
-	
-//	@Test
-//	public void getListTest() {
-//		for (Company companyVO : companyService.getList()) {
-//			log.info(companyVO);
-//		}
-//	}
-	
-	// @Test
-	// public void CompanyPagingTest() {
-	// 	for (Company company: companyService.getList(PageRequest.of(0, 20))) {
-	// 		log.info(company.getCompanyName());
-	// 	}
-	// }
+	@Test
+	public void companyFilterTest(){
+
+	}
+
+	@Test
+	public void companySearchTest(){
+
+	}
 }

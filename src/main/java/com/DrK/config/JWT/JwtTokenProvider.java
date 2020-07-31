@@ -6,11 +6,10 @@ import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.DrK.Service.CustomUserDetailService;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -20,15 +19,14 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@Component
+@Component(value = "jwtTokenProvider")
 public class JwtTokenProvider {
     
     private String secretKey = "recruit-list";
 
     private final long tokenValidTime = 60 * 60 * 1000L;
 
-    @Autowired
-    private final UserDetailsService userDetailsService;
+    private CustomUserDetailService userDetailsService;
 
     @PostConstruct
     protected void init(){
@@ -48,8 +46,8 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(final String token) {
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(getUserNameByToken(token));
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        final String userName = userDetailsService.loadUserByUsername(getUserNameByToken(token));
+        return new UsernamePasswordAuthenticationToken(userName, "", null);
     }
 
     public String getUserNameByToken(final String token) {

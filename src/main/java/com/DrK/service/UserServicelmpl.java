@@ -12,37 +12,33 @@ import org.springframework.transaction.annotation.Transactional;
 import com.DrK.Config.JWT.JwtTokenProvider;
 import com.DrK.DTO.SigninDTO;
 import com.DrK.DTO.SignupDTO;
-import com.DrK.Entities.Company;
-import com.DrK.Entities.User;
-import com.DrK.Entities.UserLikeCompany;
+import com.DrK.DTO.UserinfoDTO;
+import com.DrK.Entities.CompanyEntity;
+import com.DrK.Entities.UserEntity;
+import com.DrK.Entities.UserLikeCompanyEntity;
 import com.DrK.Repositories.CompanyRepository;
 import com.DrK.Repositories.UserLikeCompanyRepository;
 import com.DrK.Repositories.UserRepository;
 
-import lombok.AllArgsConstructor;
-
 @Service
-@AllArgsConstructor
-public class UserServicelmpl implements UserService{
-	
+public class UserServicelmpl implements UserService {
+
 	@Autowired
 	private UserRepository userRepository;
-
 	@Autowired
 	private UserLikeCompanyRepository UserLikeCompanyRepository;
-	
 	@Autowired
 	private CompanyRepository CompanyRepository;
-	
-	private final JwtTokenProvider jwtTokenProvider;
 
-	private final PasswordEncoder passwordEncoder;
+	@Autowired
+	private JwtTokenProvider jwtTokenProvider;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public String createToken(SigninDTO signinDTO) {
-		User user=userRepository.findByName(signinDTO.getUserName());
-		if(user!=null && 
-				passwordEncoder.matches(signinDTO.getPassword(), user.getPassword()))
+		UserEntity userEntity = userRepository.findByName(signinDTO.getUserName());
+		if (userEntity != null && passwordEncoder.matches(signinDTO.getPassword(), userEntity.getPassword()))
 			return jwtTokenProvider.createToken(signinDTO.getUserName());
 		else
 			return "fail";
@@ -51,43 +47,43 @@ public class UserServicelmpl implements UserService{
 	@Override
 	public boolean Signup(SignupDTO signupDTO) {
 		try {
-			User user = new User();
-			user.setEmail(signupDTO.getEmail());
-			user.setName(signupDTO.getUserName());
-			user.setPassword(passwordEncoder.encode(signupDTO.getPassword()));
-			user.setSignupDate(new Date());
-			if (userRepository.findByName(user.getName())==null) {
-				userRepository.save(user);
+			UserEntity userEntity = new UserEntity();
+			userEntity.setEmail(signupDTO.getEmail());
+			userEntity.setName(signupDTO.getUserName());
+			userEntity.setPassword(passwordEncoder.encode(signupDTO.getPassword()));
+			userEntity.setSignupDate(new Date());
+			if (!userRepository.isExistUser(signupDTO.getUserName())) {
+				userRepository.save(userEntity);
 				return true;
-			}else {
+			} else {
 				return false;
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
 	}
 
 	@Override
-	public List<Company> getUserLikeCompany(String userName) throws Exception {
-		User user=userRepository.findByName(userName);
+	public List<CompanyEntity> getUserLikeCompany(String userName) throws Exception {
+		UserEntity userEntity = userRepository.findByName(userName);
 		List<String> companyIdxs = new ArrayList<String>();
-		for (UserLikeCompany userLikeCompany : UserLikeCompanyRepository.findByUserIdx(user.getIdx())) {
+		for (UserLikeCompanyEntity userLikeCompany : UserLikeCompanyRepository.findByUserIdx(userEntity.getIdx())) {
 			companyIdxs.add(userLikeCompany.getCompanyIdx());
 		}
 		return CompanyRepository.findByIdIn(companyIdxs);
 	}
 
 	@Override
-	public boolean setLikeCompany(String userName, String companyId) throws Exception{
+	public boolean setLikeCompany(String userName, String companyId) throws Exception {
 		try {
-			User user=userRepository.findByName(userName);
-			UserLikeCompany userCompany=new UserLikeCompany();
+			UserEntity userEntity = userRepository.findByName(userName);
+			UserLikeCompanyEntity userCompany = new UserLikeCompanyEntity();
 			userCompany.setCompanyIdx(companyId);
-			userCompany.setUserIdx(user.getIdx());
+			userCompany.setUserIdx(userEntity.getIdx());
 			UserLikeCompanyRepository.save(userCompany);
 			return true;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -95,15 +91,58 @@ public class UserServicelmpl implements UserService{
 
 	@Override
 	@Transactional
-	public boolean deleteLikeCompany(String username, String companyId) throws Exception{
+	public boolean deleteLikeCompany(String username, String companyId) throws Exception {
 		try {
-			User user=userRepository.findByName(username);
-			UserLikeCompanyRepository.deleteByUserIdxAndCompanyIdx(user.getIdx(), companyId);
+			UserEntity userEntity = userRepository.findByName(username);
+			UserLikeCompanyRepository.deleteByUserIdxAndCompanyIdx(userEntity.getIdx(), companyId);
 			return true;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public UserinfoDTO getUserinfo(String userName) {
+		UserinfoDTO userinfoDTO = new UserinfoDTO();
+		UserEntity userEntity = userRepository.findByName(userName);
+		userinfoDTO.setUserName(userEntity.getName());
+		userinfoDTO.setEmail(userEntity.getEmail());
+		userinfoDTO.setSignupDate(userEntity.getSignupDate());
+		return userinfoDTO;
+	}
+
+	@Override
+	public boolean withdraw(String userName, String password) {
+		UserEntity userenEntity = userRepository.findByName(userName);
+		if (passwordEncoder.matches(password, userenEntity.getPassword())){
+			userRepository.delete(userenEntity);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	@Transactional
+	public String editUserinfo(String userName, UserinfoDTO userinfoDTO){
+		UserEntity userEntity = userRepository.findByName(userName);
+		if(!userEntity.getName().equals(userinfoDTO.getUserName())){
+			if (userRepository.isExistUser(userinfoDTO.getUserName()))
+				return "false";
+			else
+				userEntity.setName(userinfoDTO.getUserName());
+		}
+		userEntity.setEmail(userinfoDTO.getEmail());
+		userRepository.save(userEntity);
+		return jwtTokenProvider.createToken(userEntity.getName());	
+	}
+
+	@Override
+	public boolean editPassword(String userName, String newPassword) {
+		UserEntity userEntity = userRepository.findByName(userName);
+		userEntity.setPassword(passwordEncoder.encode(newPassword));
+		userRepository.save(userEntity);
+		return true;
 	}
 
 }

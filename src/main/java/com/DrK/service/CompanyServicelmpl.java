@@ -7,36 +7,29 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.DrK.DTO.CompanyFilterDTO;
-import com.DrK.Entities.Company;
+import com.DrK.Entities.CompanyEntity;
 import com.DrK.Repositories.CompanyRepository;
 
-import lombok.AllArgsConstructor;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CompanyServicelmpl implements CompanyService{
 
-	@Setter(onMethod_ = {@Autowired})
 	private CompanyRepository companyRepo;
-	
-	@Override
-	public List<Company> getAllCompanyList() {
-		return companyRepo.findAll();
-	}
 
 	@Override
-	public List<Company> getCompanyList(int page) {
+	public List<CompanyEntity> getCompanyList(int page) {
 		return companyRepo.findAll(PageRequest.of(page, 20)).getContent();
 	}
 
 	@Override
-	public List<Company> getCompanyFilterd(CompanyFilterDTO companyFilterDTO) {
+	public List<CompanyEntity> getCompanyFilterd(CompanyFilterDTO companyFilterDTO) {
 		return null;
 	}
 
 	@Override
-	public List<Company> companyNameSearch(String companyName, int page) {
+	public List<CompanyEntity> companyNameSearch(String companyName, int page) {
 		return companyRepo.findBycompanyNameContaining(companyName, PageRequest.of(page, 20)).getContent();
 	}
 

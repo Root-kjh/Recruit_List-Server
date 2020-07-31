@@ -3,15 +3,12 @@ package com.DrK.Service;
 import java.util.List;
 
 import com.DrK.DTO.CompanyFilterDTO;
-import com.DrK.Entities.Company;
+import com.DrK.Entities.CompanyEntity;
 
 public interface CompanyService {
+	public List<CompanyEntity> getCompanyList(int page);
 
-	public List<Company> getAllCompanyList();
+	public List<CompanyEntity> getCompanyFilterd(CompanyFilterDTO companyFilterDTO);
 	
-	public List<Company> getCompanyList(int page);
-
-	public List<Company> getCompanyFilterd(CompanyFilterDTO companyFilterDTO);
-	
-	public List<Company> companyNameSearch(String companyName, int page);
+	public List<CompanyEntity> companyNameSearch(String companyName, int page);
 }

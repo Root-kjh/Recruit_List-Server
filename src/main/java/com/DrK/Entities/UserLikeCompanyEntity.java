@@ -13,7 +13,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "UserLikeCompany")
-public class UserLikeCompany {
+public class UserLikeCompanyEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -7,11 +7,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
-import com.DrK.Entities.Company;
+import com.DrK.Entities.CompanyEntity;
 
-public interface CompanyRepository extends MongoRepository<Company, String>, QuerydslPredicateExecutor<Company>{
+public interface CompanyRepository extends MongoRepository<CompanyEntity, String>{
 
-	public Page<Company> findBycompanyNameContaining(String keywork,Pageable pageable);
+	public Page<CompanyEntity> findBycompanyNameContaining(String keywork,Pageable pageable);
 	
-	public List<Company> findByIdIn(List<String> ids);
+	public List<CompanyEntity> findByIdIn(List<String> ids);
 }
