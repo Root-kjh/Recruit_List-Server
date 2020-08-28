@@ -10,12 +10,10 @@ import com.DrK.DTO.CompanyFilterDTO;
 import com.DrK.Entities.CompanyEntity;
 import com.DrK.Repositories.CompanyRepository;
 
-import lombok.RequiredArgsConstructor;
-
 @Service
-@RequiredArgsConstructor
-public class CompanyServicelmpl implements CompanyService{
+public class CompanyServiceImpl implements CompanyService{
 
+	@Autowired
 	private CompanyRepository companyRepo;
 
 	@Override
@@ -25,7 +23,7 @@ public class CompanyServicelmpl implements CompanyService{
 
 	@Override
 	public List<CompanyEntity> getCompanyFilterd(CompanyFilterDTO companyFilterDTO) {
-		return null;
+		return companyRepo.findFilteredCompany(companyFilterDTO);
 	}
 
 	@Override

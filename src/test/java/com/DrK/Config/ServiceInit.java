@@ -5,7 +5,7 @@ import com.DrK.Service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class ServiceTest extends TestInit{
+public class ServiceInit extends TestInit{
 
     @Autowired
     protected UserService userService;

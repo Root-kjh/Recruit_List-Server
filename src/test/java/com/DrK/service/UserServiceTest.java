@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import com.DrK.Config.ServiceTest;
+import com.DrK.Config.ServiceInit;
 import com.DrK.DTO.SigninDTO;
 import com.DrK.DTO.SignupDTO;
 import com.DrK.DTO.UserinfoDTO;
@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
-public class UserServiceTest extends ServiceTest{
+public class UserServiceTest extends ServiceInit{
 
 
 	@Test

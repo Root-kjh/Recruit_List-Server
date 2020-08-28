@@ -16,12 +16,14 @@ import com.DrK.DTO.UserinfoDTO;
 import com.DrK.Entities.CompanyEntity;
 import com.DrK.Entities.UserEntity;
 import com.DrK.Entities.UserLikeCompanyEntity;
+import com.DrK.Exceptions.UserDataInvalidException;
+import com.DrK.Exceptions.UserExistException;
 import com.DrK.Repositories.CompanyRepository;
 import com.DrK.Repositories.UserLikeCompanyRepository;
 import com.DrK.Repositories.UserRepository;
 
 @Service
-public class UserServicelmpl implements UserService {
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -36,16 +38,16 @@ public class UserServicelmpl implements UserService {
 	private PasswordEncoder passwordEncoder;
 
 	@Override
-	public String createToken(SigninDTO signinDTO) {
+	public String createToken(SigninDTO signinDTO) throws UserDataInvalidException{
 		UserEntity userEntity = userRepository.findByName(signinDTO.getUserName());
 		if (userEntity != null && passwordEncoder.matches(signinDTO.getPassword(), userEntity.getPassword()))
 			return jwtTokenProvider.createToken(signinDTO.getUserName());
 		else
-			return "fail";
+			throw new UserDataInvalidException();
 	}
 
 	@Override
-	public boolean Signup(SignupDTO signupDTO) {
+	public boolean Signup(SignupDTO signupDTO) throws UserExistException{
 		try {
 			UserEntity userEntity = new UserEntity();
 			userEntity.setEmail(signupDTO.getEmail());
@@ -56,7 +58,7 @@ public class UserServicelmpl implements UserService {
 				userRepository.save(userEntity);
 				return true;
 			} else {
-				return false;
+				throw new UserExistException();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,17 +67,22 @@ public class UserServicelmpl implements UserService {
 	}
 
 	@Override
-	public List<CompanyEntity> getUserLikeCompany(String userName) throws Exception {
-		UserEntity userEntity = userRepository.findByName(userName);
-		List<String> companyIdxs = new ArrayList<String>();
-		for (UserLikeCompanyEntity userLikeCompany : UserLikeCompanyRepository.findByUserIdx(userEntity.getIdx())) {
-			companyIdxs.add(userLikeCompany.getCompanyIdx());
+	public List<CompanyEntity> getUserLikeCompany(String userName) {
+		try{
+			UserEntity userEntity = userRepository.findByName(userName);
+			List<String> companyIdxs = new ArrayList<String>();
+			for (UserLikeCompanyEntity userLikeCompany : UserLikeCompanyRepository.findByUserIdx(userEntity.getIdx())) {
+				companyIdxs.add(userLikeCompany.getCompanyIdx());
 		}
 		return CompanyRepository.findByIdIn(companyIdxs);
+		} catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
-	public boolean setLikeCompany(String userName, String companyId) throws Exception {
+	public boolean setLikeCompany(String userName, String companyId) {
 		try {
 			UserEntity userEntity = userRepository.findByName(userName);
 			UserLikeCompanyEntity userCompany = new UserLikeCompanyEntity();
@@ -91,7 +98,7 @@ public class UserServicelmpl implements UserService {
 
 	@Override
 	@Transactional
-	public boolean deleteLikeCompany(String username, String companyId) throws Exception {
+	public boolean deleteLikeCompany(String username, String companyId) {
 		try {
 			UserEntity userEntity = userRepository.findByName(username);
 			UserLikeCompanyRepository.deleteByUserIdxAndCompanyIdx(userEntity.getIdx(), companyId);
@@ -104,31 +111,36 @@ public class UserServicelmpl implements UserService {
 
 	@Override
 	public UserinfoDTO getUserinfo(String userName) {
-		UserinfoDTO userinfoDTO = new UserinfoDTO();
-		UserEntity userEntity = userRepository.findByName(userName);
-		userinfoDTO.setUserName(userEntity.getName());
-		userinfoDTO.setEmail(userEntity.getEmail());
-		userinfoDTO.setSignupDate(userEntity.getSignupDate());
-		return userinfoDTO;
+		try{
+			UserinfoDTO userinfoDTO = new UserinfoDTO();
+			UserEntity userEntity = userRepository.findByName(userName);
+			userinfoDTO.setUserName(userEntity.getName());
+			userinfoDTO.setEmail(userEntity.getEmail());
+			userinfoDTO.setSignupDate(userEntity.getSignupDate());
+			return userinfoDTO;
+		} catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
-	public boolean withdraw(String userName, String password) {
+	public boolean withdraw(String userName, String password) throws UserDataInvalidException{
 		UserEntity userenEntity = userRepository.findByName(userName);
 		if (passwordEncoder.matches(password, userenEntity.getPassword())){
 			userRepository.delete(userenEntity);
 			return true;
 		}
-		return false;
+		throw new UserDataInvalidException();
 	}
 
 	@Override
 	@Transactional
-	public String editUserinfo(String userName, UserinfoDTO userinfoDTO){
+	public String editUserinfo(String userName, UserinfoDTO userinfoDTO) throws UserExistException{
 		UserEntity userEntity = userRepository.findByName(userName);
 		if(!userEntity.getName().equals(userinfoDTO.getUserName())){
 			if (userRepository.isExistUser(userinfoDTO.getUserName()))
-				return "false";
+				throw new UserExistException();
 			else
 				userEntity.setName(userinfoDTO.getUserName());
 		}

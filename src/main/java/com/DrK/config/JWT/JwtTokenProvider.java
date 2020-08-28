@@ -45,7 +45,7 @@ public class JwtTokenProvider {
             .compact();
     }
 
-    public Authentication getAuthentication(final String token) {
+    public Authentication getAuthentication(final String token){
         final String userName = userDetailsService.loadUserByUsername(getUserNameByToken(token));
         return new UsernamePasswordAuthenticationToken(userName, "", null);
     }

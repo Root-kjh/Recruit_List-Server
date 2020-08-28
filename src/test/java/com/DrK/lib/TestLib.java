@@ -1,7 +1,5 @@
 package com.DrK.lib;
 
-import com.DrK.DTO.SignupDTO;
-import com.DrK.Entities.UserEntity;
 import com.DrK.Repositories.CompanyRepository;
 import com.DrK.Repositories.UserRepository;
 

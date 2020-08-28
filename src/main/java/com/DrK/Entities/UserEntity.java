@@ -21,9 +21,13 @@ import com.DrK.DTO.UserinfoDTO;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@ToString
 @Entity(name = "User")
 @Table(name = "User")
 public class UserEntity {

@@ -1,15 +1,14 @@
 package com.DrK.Config;
 
-import java.util.Arrays;
-import java.util.Properties;
-
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -18,32 +17,21 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.mongodb.MongoClient;
-
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
 @EnableMongoRepositories(basePackages = {"com.DrK.Repositories"})
 @EnableJpaRepositories(basePackages = {"com.DrK.Repositories"})
 @EnableTransactionManagement
-public class DB extends AbstractMongoConfiguration{
+public class DB{
 	
 	// String host="kjh-projects.kro.kr";
 	String host="localhost";
 
-	@Override
-	public MongoClient mongoClient() {
-		return new MongoClient(host);
-	}
-
-	@Override
-	protected String getDatabaseName() {
-		return "Recruit_List";
-	}
-	
 	@Bean
 	public MongoTemplate mongoTemplate() throws Exception{
-		return new MongoTemplate(mongoClient(), getDatabaseName());
+		MongoClient mongoClient = MongoClients.create("mongodb://" + host + ":27017");
+		return new MongoTemplate(mongoClient, "Recruit_List");
 	}
 	
 	@Bean

@@ -2,6 +2,8 @@ package com.DrK.Config;
 
 import javax.servlet.Filter;
 
+import com.DrK.Config.JWT.WebSecurityConfig;
+
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -11,7 +13,8 @@ public class Web extends AbstractAnnotationConfigDispatcherServletInitializer{
 	protected Class<?>[] getRootConfigClasses() {
 		return new Class[] {
 				DB.class,
-				Root.class
+				Root.class,
+				WebSecurityConfig.class
 		};
 	}
 
@@ -29,7 +32,6 @@ public class Web extends AbstractAnnotationConfigDispatcherServletInitializer{
 	protected Filter[] getServletFilters() {
 		CharacterEncodingFilter encodingFilter=new CharacterEncodingFilter();
 		encodingFilter.setEncoding("UTF-8");
-		
 		return new Filter[]{encodingFilter};
 	}
 }

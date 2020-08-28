@@ -2,6 +2,8 @@ package com.DrK.DTO;
 
 import javax.validation.constraints.NotNull;
 
+import org.springframework.data.domain.PageRequest;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -19,5 +21,5 @@ public class CompanyFilterDTO {
     private int employeesNum;
 
     @NotNull
-    private int page;
+    private PageRequest page;
 }
