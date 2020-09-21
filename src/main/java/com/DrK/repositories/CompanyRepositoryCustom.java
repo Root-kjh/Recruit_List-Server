@@ -1,4 +1,4 @@
-package com.DrK.Repositories;
+package com.DrK.repositories;
 
 import java.util.List;
 

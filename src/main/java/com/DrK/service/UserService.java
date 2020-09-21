@@ -1,4 +1,4 @@
-package com.DrK.Service;
+package com.DrK.service;
 
 import java.util.List;
 

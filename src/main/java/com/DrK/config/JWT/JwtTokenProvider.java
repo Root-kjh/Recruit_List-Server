@@ -1,4 +1,4 @@
-package com.DrK.Config.JWT;
+package com.DrK.config.JWT;
 
 import java.util.Base64;
 import java.util.Date;
@@ -6,7 +6,7 @@ import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
-import com.DrK.Service.CustomUserDetailService;
+import com.DrK.service.CustomUserDetailService;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

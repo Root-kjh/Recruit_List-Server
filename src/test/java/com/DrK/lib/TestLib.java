@@ -1,7 +1,7 @@
 package com.DrK.lib;
 
-import com.DrK.Repositories.CompanyRepository;
-import com.DrK.Repositories.UserRepository;
+import com.DrK.repositories.CompanyRepository;
+import com.DrK.repositories.UserRepository;
 
 import lombok.AllArgsConstructor;
 

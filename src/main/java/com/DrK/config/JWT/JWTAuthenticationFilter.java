@@ -1,4 +1,4 @@
-package com.DrK.Config.JWT;
+package com.DrK.config.JWT;
 
 import java.io.IOException;
 

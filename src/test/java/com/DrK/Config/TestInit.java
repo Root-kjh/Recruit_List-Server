@@ -2,12 +2,12 @@ package com.DrK.Config;
 
 import java.util.Date;
 
-import com.DrK.Config.JWT.JwtTokenProvider;
+import com.DrK.config.JWT.JwtTokenProvider;
 import com.DrK.Entities.CompanyEntity;
 import com.DrK.Entities.UserEntity;
-import com.DrK.Repositories.CompanyRepository;
-import com.DrK.Repositories.UserLikeCompanyRepository;
-import com.DrK.Repositories.UserRepository;
+import com.DrK.repositories.CompanyRepository;
+import com.DrK.repositories.UserLikeCompanyRepository;
+import com.DrK.repositories.UserRepository;
 import com.DrK.lib.TestLib;
 
 import org.junit.After;
@@ -22,7 +22,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {com.DrK.Config.Root.class, com.DrK.Config.DB.class, com.DrK.Config.Web.class})
+@ContextConfiguration(classes = {com.DrK.config.root.class, com.DrK.config.DB.class, com.DrK.config.web.class})
 @WebAppConfiguration
 @Log4j
 public class TestInit {

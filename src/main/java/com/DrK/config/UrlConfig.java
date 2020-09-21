@@ -1,4 +1,4 @@
-package com.DrK.Config;
+package com.DrK.config;
 
 public class UrlConfig {
     public static class User {

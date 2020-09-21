@@ -1,4 +1,4 @@
-package com.DrK.Controller;
+package com.DrK.controller;
 
 import java.util.List;
 
@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.DrK.Config.UrlConfig;
+import com.DrK.config.UrlConfig;
 import com.DrK.DTO.SigninDTO;
 import com.DrK.DTO.SignupDTO;
 import com.DrK.Entities.CompanyEntity;
 import com.DrK.Exceptions.RequestDataInvalidException;
 import com.DrK.Exceptions.UserDataInvalidException;
 import com.DrK.Exceptions.UserExistException;
-import com.DrK.Service.UserService;
+import com.DrK.service.UserService;
 
 @RestController
 public class UserContoller {

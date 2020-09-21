@@ -1,8 +1,8 @@
 package com.DrK.Config;
 
 import com.DrK.DTO.SigninDTO;
-import com.DrK.Service.CompanyService;
-import com.DrK.Service.UserService;
+import com.DrK.service.CompanyService;
+import com.DrK.service.UserService;
 import com.DrK.lib.TestLib;
 
 import org.junit.Before;

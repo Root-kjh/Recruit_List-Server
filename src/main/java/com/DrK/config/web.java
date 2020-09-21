@@ -1,26 +1,26 @@
-package com.DrK.Config;
+package com.DrK.config;
 
 import javax.servlet.Filter;
 
-import com.DrK.Config.JWT.WebSecurityConfig;
+import com.DrK.config.JWT.WebSecurityConfig;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class Web extends AbstractAnnotationConfigDispatcherServletInitializer{
+public class web extends AbstractAnnotationConfigDispatcherServletInitializer{
 	
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		return new Class[] {
 				DB.class,
-				Root.class,
+				root.class,
 				WebSecurityConfig.class
 		};
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class[] {Servlet.class};
+		return new Class[] {servlet.class};
 	}
 
 	@Override

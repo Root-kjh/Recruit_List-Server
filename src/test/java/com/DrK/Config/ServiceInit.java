@@ -1,7 +1,7 @@
 package com.DrK.Config;
 
-import com.DrK.Service.CompanyService;
-import com.DrK.Service.UserService;
+import com.DrK.service.CompanyService;
+import com.DrK.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

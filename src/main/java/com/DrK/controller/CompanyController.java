@@ -1,4 +1,4 @@
-package com.DrK.Controller;
+package com.DrK.controller;
 
 import java.util.List;
 
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.DrK.Config.UrlConfig;
+import com.DrK.config.UrlConfig;
 import com.DrK.DTO.CompanyFilterDTO;
 import com.DrK.Entities.CompanyEntity;
-import com.DrK.Service.CompanyService;
+import com.DrK.service.CompanyService;
 
 import lombok.Setter;
 

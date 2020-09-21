@@ -1,7 +1,7 @@
-package com.DrK.Service;
+package com.DrK.service;
 
 import com.DrK.Entities.UserEntity;
-import com.DrK.Repositories.UserRepository;
+import com.DrK.repositories.UserRepository;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 

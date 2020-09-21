@@ -1,4 +1,4 @@
-package com.DrK.Service;
+package com.DrK.service;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.DrK.Config.JWT.JwtTokenProvider;
+import com.DrK.config.JWT.JwtTokenProvider;
 import com.DrK.DTO.SigninDTO;
 import com.DrK.DTO.SignupDTO;
 import com.DrK.DTO.UserinfoDTO;
@@ -18,9 +18,9 @@ import com.DrK.Entities.UserEntity;
 import com.DrK.Entities.UserLikeCompanyEntity;
 import com.DrK.Exceptions.UserDataInvalidException;
 import com.DrK.Exceptions.UserExistException;
-import com.DrK.Repositories.CompanyRepository;
-import com.DrK.Repositories.UserLikeCompanyRepository;
-import com.DrK.Repositories.UserRepository;
+import com.DrK.repositories.CompanyRepository;
+import com.DrK.repositories.UserLikeCompanyRepository;
+import com.DrK.repositories.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {

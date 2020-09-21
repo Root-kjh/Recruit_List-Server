@@ -1,4 +1,4 @@
-package com.DrK.Config;
+package com.DrK.config;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;

@@ -1,4 +1,4 @@
-package com.DrK.Service;
+package com.DrK.service;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.DrK.DTO.CompanyFilterDTO;
 import com.DrK.Entities.CompanyEntity;
-import com.DrK.Repositories.CompanyRepository;
+import com.DrK.repositories.CompanyRepository;
 
 @Service
 public class CompanyServiceImpl implements CompanyService{
