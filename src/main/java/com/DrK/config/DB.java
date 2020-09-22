@@ -25,8 +25,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 @EnableTransactionManagement
 public class DB{
 	
-	// String host="kjh-projects.kro.kr";
-	String host="localhost";
+	String host="kjh-projects.kro.kr";
+	// String host="localhost";
 
 	@Bean
 	public MongoTemplate mongoTemplate() throws Exception{
@@ -39,8 +39,8 @@ public class DB{
 		DriverManagerDataSource dataSource=new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 		dataSource.setUrl("jdbc:mysql://"+host+"/Recruit_List");
-		dataSource.setUsername("root");
-		dataSource.setPassword("test");
+		dataSource.setUsername("Recruit_List");
+		dataSource.setPassword("Recruit_List");
 		return dataSource;
 	}
 	
