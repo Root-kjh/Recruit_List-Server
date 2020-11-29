@@ -31,16 +31,16 @@ public class DB{
 	@Bean
 	public MongoTemplate mongoTemplate() throws Exception{
 		MongoClient mongoClient = MongoClients.create("mongodb://" + host + ":27017");
-		return new MongoTemplate(mongoClient, "Recruit_List");
+		return new MongoTemplate(mongoClient, "RecruitList");
 	}
 	
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource=new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://"+host+"/Recruit_List");
-		dataSource.setUsername("Recruit_List");
-		dataSource.setPassword("Recruit_List");
+		dataSource.setUrl("jdbc:mysql://"+host+"/RecruitList?serverTimezone=UTC");
+		dataSource.setUsername("RecruitList");
+		dataSource.setPassword("RecruitList");
 		return dataSource;
 	}
 	

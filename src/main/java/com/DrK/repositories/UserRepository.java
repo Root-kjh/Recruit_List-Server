@@ -13,6 +13,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer>{
 	
 	public List<CompanyEntity> findCompaniesByName(String username);
 
-	@Query("select count(u)>0 from User u where u.name = ?1")
+	@Query("select count(u)>0 from user u where u.name = ?1")
 	public boolean isExistUser(String username);
 }

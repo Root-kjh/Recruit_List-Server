@@ -13,7 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@Document(collection = "Company")
+@Document(collection = "company")
 public class CompanyEntity {
 	
 	@Id
