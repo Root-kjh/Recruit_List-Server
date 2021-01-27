@@ -1,8 +1,14 @@
 package com.DrK.config;
 
+import java.util.Collections;
+
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 
@@ -30,7 +36,14 @@ public class DB{
 
 	@Bean
 	public MongoTemplate mongoTemplate() throws Exception{
-		MongoClient mongoClient = MongoClients.create("mongodb://" + host + ":27017");
+		// MongoClient mongoClient = MongoClients.create("mongodb://RecruitList:RecruitList@" + host + ":27017/RecruitList");
+		// return new MongoTemplate(mongoClient, "RecruitList");
+
+		com.mongodb.MongoClient mongoClient = new com.mongodb.MongoClient(
+			new ServerAddress(host, 27017), 
+			MongoCredential.createCredential("RecruitList", "RecruitList", "RecruitList".toCharArray()),
+			MongoClientOptions.builder().build()
+		);
 		return new MongoTemplate(mongoClient, "RecruitList");
 	}
 	
