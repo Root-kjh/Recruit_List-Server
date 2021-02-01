@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
@@ -38,12 +39,17 @@ public class DB{
 	public MongoTemplate mongoTemplate() throws Exception{
 		// MongoClient mongoClient = MongoClients.create("mongodb://RecruitList:RecruitList@" + host + ":27017/RecruitList");
 		// return new MongoTemplate(mongoClient, "RecruitList");
-
-		com.mongodb.MongoClient mongoClient = new com.mongodb.MongoClient(
-			new ServerAddress(host, 27017), 
-			MongoCredential.createCredential("RecruitList", "RecruitList", "RecruitList".toCharArray()),
-			MongoClientOptions.builder().build()
-		);
+		ConnectionString connectionString = new ConnectionString("mongodb://" + host + ":27017/RecruitList");
+		MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
+			.credential(MongoCredential.createCredential("RecruitList", "RecruitList", "RecruitList".toCharArray()))
+			.applyConnectionString(connectionString)
+			.build();
+		MongoClient mongoClient = MongoClients.create(mongoClientSettings);
+		// com.mongodb.MongoClient mongoClient = new com.mongodb.MongoClient(
+		// 	new ServerAddress(host, 27017), 
+		// 	MongoCredential.createCredential("RecruitList", "RecruitList", "RecruitList".toCharArray()),
+		// 	MongoClientOptions.builder().build()
+		// );
 		return new MongoTemplate(mongoClient, "RecruitList");
 	}
 	
