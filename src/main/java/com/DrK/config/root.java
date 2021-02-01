@@ -4,7 +4,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages = {"com.DrK.Service", "com.DrK.config"})
+@ComponentScan(basePackages = {"com.DrK.service", "com.DrK.config"})
 public class root {
 
 }
