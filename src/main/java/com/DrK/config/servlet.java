@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.DrK.Controller")
+@ComponentScan("com.DrK.controller")
 public class servlet implements WebMvcConfigurer{
 
 }
