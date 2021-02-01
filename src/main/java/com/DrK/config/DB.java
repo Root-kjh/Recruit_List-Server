@@ -23,8 +23,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
-@EnableMongoRepositories(basePackages = {"com.DrK.Repositories"})
-@EnableJpaRepositories(basePackages = {"com.DrK.Repositories"})
+@EnableMongoRepositories(basePackages = {"com.DrK.repositories"})
+@EnableJpaRepositories(basePackages = {"com.DrK.repositories"})
 @EnableTransactionManagement
 public class DB{
 	
