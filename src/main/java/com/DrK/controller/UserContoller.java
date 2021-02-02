@@ -18,6 +18,7 @@ import com.DrK.config.UrlConfig;
 import com.DrK.DTO.SigninDTO;
 import com.DrK.DTO.SignupDTO;
 import com.DrK.Entities.CompanyEntity;
+import com.DrK.Entities.UserEntity;
 import com.DrK.Exceptions.RequestDataInvalidException;
 import com.DrK.Exceptions.UserDataInvalidException;
 import com.DrK.Exceptions.UserExistException;
@@ -38,6 +39,7 @@ public class UserContoller {
 			String token= UserService.createToken(signinDTO);
 			return token;
 		} catch (UserDataInvalidException e) {
+			e.printStackTrace();
 			throw new UserDataInvalidException("Login Failed", request, UrlConfig.User.signin);
 		}
 	}
@@ -50,6 +52,7 @@ public class UserContoller {
 		try{
 			return UserService.Signup(signupDTO);
 		} catch (UserExistException e){
+			e.printStackTrace();
 			throw new UserExistException("Exist User", request, UrlConfig.User.signup);
 		}
 	}
@@ -60,6 +63,7 @@ public class UserContoller {
 			authentication.getPrincipal();
 			return null;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -69,9 +73,10 @@ public class UserContoller {
 			Authentication authentication,
 			@RequestParam String companyId) {
 		try {
-			// UserService.setLikeCompany(username, companyId);
-			return true;
+			Long userIdx = ((UserEntity) authentication.getPrincipal()).getIdx();
+			return UserService.setLikeCompany(userIdx, companyId);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -81,9 +86,10 @@ public class UserContoller {
 			Authentication authentication,
 			@RequestParam String companyId) {
 		try {
-			// UserService.deleteLikeCompany(username, companyId);
-			return true;
+			String username= ((UserEntity) authentication.getPrincipal()).getName();
+			return UserService.deleteLikeCompany(username, companyId);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}

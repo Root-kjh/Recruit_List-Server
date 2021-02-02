@@ -102,7 +102,7 @@ public class UserServiceTest extends ServiceInit{
 	public void setLikeCompanyTest() throws Exception {
 		this.makeTestUser();
 		CompanyEntity companyEntity = this.makeTestCompany();
-		assertTrue(this.userService.setLikeCompany(TestLib.testUser.name, companyEntity.getId()));
+		assertTrue(this.userService.setLikeCompany(this.userRepository.findAll().get(0).getIdx(), companyEntity.getId()));
 		UserEntity userEntity = this.userRepository.findByName(TestLib.testUser.name);
 		for (UserLikeCompanyEntity company : userEntity.getCompanies()) {
 			assertEquals(company.getCompanyIdx(), companyEntity.getId());
@@ -126,7 +126,7 @@ public class UserServiceTest extends ServiceInit{
 	public void deleteLikeCompanyTest() throws Exception {
 		this.makeTestUser();
 		CompanyEntity companyEntity = this.makeTestCompany();
-		this.userService.setLikeCompany(TestLib.testUser.name, companyEntity.getId());
+		this.userService.setLikeCompany(this.userRepository.findAll().get(0).getIdx(), companyEntity.getId());
 		this.userService.deleteLikeCompany(TestLib.testUser.name, companyEntity.getId());
 		UserEntity userEntity = this.userRepository.findByName(TestLib.testUser.name);
 		assertTrue(userEntity.getCompanies().isEmpty());

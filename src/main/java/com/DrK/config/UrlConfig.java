@@ -5,9 +5,9 @@ public class UrlConfig {
         public final static String baseUrl = "/user";
         public final static String signin = baseUrl+"/signin";
         public final static String signup = baseUrl+"/signup";
-        public final static String getLikeCompany = baseUrl+"/get_like_company";
-        public final static String addLikeCompany = baseUrl+"/add_like_company";
-        public final static String deleteLikeCompany = baseUrl+"/delete_like_company";
+        public final static String getLikeCompany = baseUrl+"/authed/get_like_company";
+        public final static String addLikeCompany = baseUrl+"/authed/add_like_company";
+        public final static String deleteLikeCompany = baseUrl+"/authed/delete_like_company";
     }
 
     public static class Company {

@@ -6,10 +6,11 @@ import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
-import com.DrK.service.CustomUserDetailService;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -26,7 +27,8 @@ public class JwtTokenProvider {
 
     private final long tokenValidTime = 60 * 60 * 1000L;
 
-    private CustomUserDetailService userDetailsService;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @PostConstruct
     protected void init(){
@@ -46,7 +48,7 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(final String token){
-        final String userName = userDetailsService.loadUserByUsername(getUserNameByToken(token));
+        final UserDetails userName = userDetailsService.loadUserByUsername(getUserNameByToken(token));
         return new UsernamePasswordAuthenticationToken(userName, "", null);
     }
 

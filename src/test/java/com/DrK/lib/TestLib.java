@@ -2,6 +2,7 @@ package com.DrK.lib;
 
 import com.DrK.repositories.CompanyRepository;
 import com.DrK.repositories.UserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.AllArgsConstructor;
 
@@ -43,5 +44,13 @@ public final class TestLib {
     public final void clearDB() {
         userRepository.deleteAll();
         companyRepository.deleteAll();
+    }
+
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

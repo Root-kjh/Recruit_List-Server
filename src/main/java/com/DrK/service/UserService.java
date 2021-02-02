@@ -25,7 +25,7 @@ public interface UserService {
 
 	public List<CompanyEntity> getUserLikeCompany(String userName);
 	
-	public boolean setLikeCompany(String userName, String companyId);
+	public boolean setLikeCompany(Long userIdx, String companyId);
 	
 	public boolean deleteLikeCompany(String userName, String companyId);
 }

@@ -82,12 +82,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean setLikeCompany(String userName, String companyId) {
+	public boolean setLikeCompany(Long userIdx, String companyId) {
 		try {
-			UserEntity userEntity = userRepository.findByName(userName);
 			UserLikeCompanyEntity userCompany = new UserLikeCompanyEntity();
 			userCompany.setCompanyIdx(companyId);
-			userCompany.setUserIdx(userEntity.getIdx());
+			userCompany.setUserIdx(userIdx);
 			UserLikeCompanyRepository.save(userCompany);
 			return true;
 		} catch (Exception e) {
