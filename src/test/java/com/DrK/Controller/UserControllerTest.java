@@ -96,7 +96,7 @@ public class UserControllerTest extends ControllerInit{
             String jwt = this.getJwt();
 
             this.mockMvc.perform(put(UrlConfig.User.addLikeCompany)
-                .header(TOKEN_HEADER, jwt)
+                // .header(TOKEN_HEADER, jwt)
                 .param("companyId", companyEntity.getId()))
             .andExpect(status().isOk())
             .andDo(print())

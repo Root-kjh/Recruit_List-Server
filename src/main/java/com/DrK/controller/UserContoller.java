@@ -8,11 +8,14 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
 
 import com.DrK.config.UrlConfig;
 import com.DrK.DTO.SigninDTO;
@@ -25,6 +28,8 @@ import com.DrK.Exceptions.UserExistException;
 import com.DrK.service.UserService;
 
 @RestController
+@RequiredArgsConstructor
+@CrossOrigin
 public class UserContoller {
 	
 	@Autowired
