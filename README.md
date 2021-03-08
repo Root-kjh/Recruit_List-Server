@@ -1,54 +1,80 @@
 # Docs
 
+* CompanyInfo
+    * companyName
+    * foundingYear
+    * employeesNum
+    * companyInfoSiteList
+    * recruitListNoticeList
+
+* companyInfoSite
+    * siteName
+    * uri
+
+* recruitListNoticeList
+    * siteName
+    * uri
+
+* UserInfo
+    * pk
+    * userName
+    * jwt
+
 ## User
 
-1. Signin(/user/signin)
+1. Signin(/auth/signin)
+    * Request(POST)
+        * Json: userName, password
+    * Response: UserInfo
 
-* POST : userName, password
+2. Signup(/auth/signup)
+    * Request(POST)
+        * Json: email, userName, password
+    * Response: Success/ Fail
 
-2. Signup(/user/signup)
+3. EditUserInfo(/user/{userId})
+    * Request(PUT)
+        * Auth: jwt
+        * Json: userName, email
+    * Response: UserInfo
 
-* POST : email, userName, password
+4. edit_password(/user/{userId})
+    * Request(PATCH)
+        * Auth: jwt
+        * Json: password
+    * Response: Success/ Fail
 
-3. edit_user_info(/user/edit_user_info)
+5. withdraw(/user/{userId})
+    * Request(DELETE)
+        * Auth: jwt
 
-* header(X-AUTH-TOKEN) : jwt
-* POST : newUserName, newEmail
+6. GetLikeCompany(/user/companies)
+    * Request(GET)
+        * Auth: jwt
+    * Response: CompanyInfoList
 
-4. edit_password(/user/edit_password)
+7. addLikeCompany(/user/companies/{companyId})
+    * Request(POST)
+        * Auth: jwt
+    * Response: Success/ Fail
 
-* header(X-AUTH-TOKEN) : jwt
-* POST : newPassword
-
-5. withdraw(/user/withdraw)
-
-* header(X-AUTH-TOKEN) : jwt
-* DELETE : password
-
-6. getLikeCompany(/user/get_like_company)
-
-* header(X-AUTH-TOKEN) : jwt
-
-7. addLikeCompany(/user/add_like_company)
-
-* header(X-AUTH-TOKEN) : jwt
-* PUT : companyId
-
-8. deleteLikeCompany(/user/delete_like_company)
-
-* header(X-AUTH-TOKEN) : jwt
-* DELETE : companyId
+8. deleteLikeCompany(/user/companies/{companyId})
+    * Request(DELETE)
+        * AUTH: jwt
+    * Response: Success/ Fail
 
 ## Company
 
-1. showCompany(/company/show/{page})
+1. showCompany(/company/page/{page})
+    * Request(GET)
+    * Response: CompanyInfoList
 
-* GET
-
-2. searchCompany(/company/search/{companyName}/{page})
-
-* GET
+2. searchCompany(/company/companyName/{companyName}/page/{page})
+    * Request(GET)
+    * Response: CompanyInfoList
 
 3. filterCompany(/company/filter)
-
-* POST : isRecruting, foundingYear, employeesNum, page
+    * Request(POST)
+    * Json: isRecruting, foundingYear, employeesNum, page
+    > 파라미터의 개수가 너무 많아 PathParameter로 처리하기에 적절하지 않다고 판단.
+    * Response: CompanyInfoList
