@@ -38,13 +38,13 @@
         * Json: userName, email
     * Response: UserInfo
 
-4. edit_password(/user/{userId})
+4. EditPassword(/user/{userId})
     * Request(PATCH)
         * Auth: jwt
         * Json: password
     * Response: Success/ Fail
 
-5. withdraw(/user/{userId})
+5. Withdraw(/user/{userId})
     * Request(DELETE)
         * Auth: jwt
 
@@ -53,27 +53,27 @@
         * Auth: jwt
     * Response: CompanyInfoList
 
-7. addLikeCompany(/user/companies/{companyId})
+7. AddLikeCompany(/user/companies/{companyId})
     * Request(POST)
         * Auth: jwt
     * Response: Success/ Fail
 
-8. deleteLikeCompany(/user/companies/{companyId})
+8. DeleteLikeCompany(/user/companies/{companyId})
     * Request(DELETE)
         * AUTH: jwt
     * Response: Success/ Fail
 
 ## Company
 
-1. showCompany(/company/page/{page})
+1. ShowCompany(/company/page/{page})
     * Request(GET)
     * Response: CompanyInfoList
 
-2. searchCompany(/company/companyName/{companyName}/page/{page})
+2. SearchCompany(/company/companyName/{companyName}/page/{page})
     * Request(GET)
     * Response: CompanyInfoList
 
-3. filterCompany(/company/filter)
+3. FilterCompany(/company/filter)
     * Request(POST)
     * Json: isRecruting, foundingYear, employeesNum, page
     > 파라미터의 개수가 너무 많아 PathParameter로 처리하기에 적절하지 않다고 판단.
