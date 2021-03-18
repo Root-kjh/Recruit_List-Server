@@ -48,17 +48,17 @@
     * Request(DELETE)
         * Auth: jwt
 
-6. GetLikeCompany(/user/companies)
+6. GetLikeCompany(/user/{userId}/companies)
     * Request(GET)
         * Auth: jwt
     * Response: CompanyInfoList
 
-7. AddLikeCompany(/user/companies/{companyId})
+7. AddLikeCompany(/user/{userId}/companies/{companyId})
     * Request(POST)
         * Auth: jwt
     * Response: Success/ Fail
 
-8. DeleteLikeCompany(/user/companies/{companyId})
+8. DeleteLikeCompany(/user/{userId}/companies/{companyId})
     * Request(DELETE)
         * AUTH: jwt
     * Response: Success/ Fail
