@@ -1,6 +1,6 @@
 package com.DrK.DTO;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.domain.PageRequest;
 
@@ -13,13 +13,15 @@ import lombok.ToString;
 @ToString
 public class CompanyFilterDTO {
     
-    @NotNull
+    @NotBlank
     private boolean isRecruting;
 
+    @NotBlank
     private int foundingYear;
 
+    @NotBlank
     private int employeesNum;
 
-    @NotNull
+    @NotBlank
     private PageRequest page;
 }

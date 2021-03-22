@@ -1,6 +1,6 @@
 package com.DrK.DTO;
 
-import java.util.Date;
+import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,9 +11,12 @@ import lombok.ToString;
 @ToString
 public class UserinfoDTO {
     
+    @NotBlank
     private String userName;
 
+    @NotBlank
     private String email;
 
-    private Date signupDate;
+    @NotBlank
+    private String jwt;
 }

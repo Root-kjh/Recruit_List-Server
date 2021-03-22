@@ -16,13 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.DrK.DTO.SigninDTO;
-import com.DrK.DTO.SignupDTO;
-import com.DrK.DTO.UserinfoDTO;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -35,9 +30,6 @@ import lombok.ToString;
 @Table(name = "user")
 public class UserEntity implements UserDetails {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -59,25 +51,6 @@ public class UserEntity implements UserDetails {
 	@OneToMany
 	@JoinColumn(name = "userIdx")
 	private List<UserLikeCompanyEntity> companies = new ArrayList<UserLikeCompanyEntity>();
-
-	public boolean equals(PasswordEncoder passwordEncoder, SignupDTO signupDTO) {
-		return this.email.equals(signupDTO.getEmail()) && this.name.equals(signupDTO.getUserName())
-				&& passwordEncoder.matches(signupDTO.getPassword(), this.getPassword());
-	}
-
-	public boolean equals(PasswordEncoder passwordEncoder, SigninDTO signinDTO) {
-		return this.name.equals(signinDTO.getUserName())
-				&& passwordEncoder.matches(signinDTO.getPassword(), this.getPassword());
-	}
-
-	public boolean equals(UserinfoDTO userinfoDTO) {
-		boolean result = this.email.equals(userinfoDTO.getEmail()) && this.name.equals(userinfoDTO.getUserName());
-		if (result) {
-			if (userinfoDTO.getSignupDate() != null)
-				result = this.signupDate.equals(userinfoDTO.getSignupDate());
-		}
-		return result;
-	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

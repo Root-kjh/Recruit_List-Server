@@ -5,10 +5,16 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @SuppressWarnings("serial")
-public class CustomUserDetail implements UserDetails {
-    private String NAME;
-    private boolean ENABLED;
+@Getter
+@Setter
+public class UserDetailDTO implements UserDetails {
+    private Long idx;
+    private String name;
+    private String email;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -22,7 +28,7 @@ public class CustomUserDetail implements UserDetails {
 
     @Override
     public String getUsername() {
-        return NAME;
+        return name;
     }
 
     @Override
@@ -42,14 +48,6 @@ public class CustomUserDetail implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return ENABLED;
-    }
-
-    public String getNAME() {
-        return NAME;
-    }
- 
-    public void setNAME(String name) {
-        NAME = name;
+        return true;
     }
 }

@@ -4,19 +4,11 @@ import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
-public class SignupDTO {
+public class EditPasswordDTO {
     
-    @NotBlank
-    private String email;
-
-    @NotBlank
-    private String userName;
-
     @NotBlank
     private String password;
 }

@@ -2,30 +2,31 @@ package com.DrK.service;
 
 import java.util.List;
 
+import com.DrK.DTO.CompanyInfoDTO;
 import com.DrK.DTO.SigninDTO;
 import com.DrK.DTO.SignupDTO;
+import com.DrK.DTO.UpdateUserDTO;
 import com.DrK.DTO.UserinfoDTO;
-import com.DrK.Entities.CompanyEntity;
-import com.DrK.Exceptions.UserDataInvalidException;
-import com.DrK.Exceptions.UserExistException;
+import com.DrK.Errors.LoginFailedException;
+import com.DrK.Errors.UserExistException;
 
 public interface UserService {
 	
-	public String createToken(SigninDTO signinDTO) throws UserDataInvalidException;
+	public UserinfoDTO signin(SigninDTO signinDTO) throws LoginFailedException;
 	
-	public boolean Signup(SignupDTO signupDTO) throws UserExistException;
+	public boolean signup(SignupDTO signupDTO) throws UserExistException;
 	
-	public UserinfoDTO getUserinfo(String userName);
+	public UserinfoDTO getUserinfo(Long userIdx);
 
-	public boolean withdraw(String userName, String password) throws UserDataInvalidException;
+	public boolean withdraw(Long userIdx);
 
-	public String editUserinfo(String userName, UserinfoDTO userinfoDTO) throws UserExistException;
+	public UserinfoDTO editUserinfo(Long userIdx, UpdateUserDTO updateUserDTO);
 
-	public boolean editPassword(String userName, String newPassword);
+	public boolean editPassword(Long userIdx, String password);
 
-	public List<CompanyEntity> getUserLikeCompany(String userName);
+	public List<CompanyInfoDTO> getUserLikeCompany(String userName);
 	
 	public boolean setLikeCompany(Long userIdx, String companyId);
 	
-	public boolean deleteLikeCompany(String userName, String companyId);
+	public boolean deleteLikeCompany(Long userIdx, String companyId);
 }

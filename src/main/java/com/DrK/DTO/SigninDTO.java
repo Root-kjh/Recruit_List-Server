@@ -1,6 +1,6 @@
 package com.DrK.DTO;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,9 +11,9 @@ import lombok.ToString;
 @ToString
 public class SigninDTO {
     
-    @NotNull
+    @NotBlank
     private String userName;
     
-    @NotNull
+    @NotBlank
     private String password;
 }
