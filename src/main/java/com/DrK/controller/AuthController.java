@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import com.DrK.DTO.SigninDTO;
 import com.DrK.DTO.SignupDTO;
+import com.DrK.DTO.UserinfoDTO;
 import com.DrK.Errors.RequestDataInvalidException;
 import com.DrK.service.UserService;
 
@@ -25,12 +26,11 @@ public class AuthController {
 	private final UserService UserService;
 	
 	@PostMapping("/signin")
-    public String signin( @RequestBody @Valid SigninDTO signinDTO, Errors errors)
+    public UserinfoDTO signin( @RequestBody @Valid SigninDTO signinDTO, Errors errors)
 		throws Exception{
 		if(errors.hasErrors())
 			throw new RequestDataInvalidException();
-        String token= UserService.createToken(signinDTO);
-        return token;
+        return UserService.signin(signinDTO);
 	}
 	
 	@PostMapping("/signup")
@@ -38,7 +38,7 @@ public class AuthController {
 		throws Exception {
 		if(errors.hasErrors())
 			throw new RequestDataInvalidException();
-        UserService.Signup(signupDTO);
+        UserService.signup(signupDTO);
         return true;
 	}
 }

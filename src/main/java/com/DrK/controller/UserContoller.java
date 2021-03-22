@@ -47,7 +47,7 @@ public class UserContoller {
 	public boolean addLikeCompany(
 			Authentication authentication,
 			@PathVariable Long userId,
-			@PathVariable Long companyId) throws Exception{
+			@PathVariable String companyId) throws Exception{
 		Long userIdx = ((UserEntity) authentication.getPrincipal()).getIdx();
 		return UserService.setLikeCompany(userIdx, companyId);
 	}
@@ -56,9 +56,8 @@ public class UserContoller {
 	public boolean delCompany(
 			Authentication authentication,
 			@PathVariable Long userId,
-			@PathVariable Long companyId) {
-		String username= ((UserEntity) authentication.getPrincipal()).getName();
-		return UserService.deleteLikeCompany(username, companyId);
+			@PathVariable String companyId) {
+		return UserService.deleteLikeCompany(userId, companyId);
 	}
 
 	@PutMapping()
