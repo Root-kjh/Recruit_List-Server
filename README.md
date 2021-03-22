@@ -35,7 +35,7 @@
 3. EditUserInfo(/user/{userId})
     * Request(PUT)
         * Auth: jwt
-        * Json: userName, email
+        * Json: email
     * Response: UserInfo
 
 4. EditPassword(/user/{userId})
