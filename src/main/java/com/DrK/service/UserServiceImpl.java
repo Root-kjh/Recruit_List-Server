@@ -25,11 +25,11 @@ import com.DrK.Entities.RecruitmentNoticeEntity;
 import com.DrK.Entities.UserEntity;
 import com.DrK.Entities.UserLikeCompanyEntity;
 import com.DrK.Errors.LoginFailedException;
-import com.DrK.Errors.UserDataInvalidException;
 import com.DrK.Errors.UserExistException;
 import com.DrK.repositories.CompanyRepository;
 import com.DrK.repositories.UserLikeCompanyRepository;
 import com.DrK.repositories.UserRepository;
+import com.DrK.lib.EntityToInfoDTO;
 
 @Service
 @AllArgsConstructor
@@ -72,32 +72,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<CompanyInfoDTO> getUserLikeCompany(String userName) {
-		UserEntity userEntity = userRepository.findByName(userName);
+	public List<CompanyInfoDTO> getUserLikeCompany(Long userIdx) {
+		UserEntity userEntity = userRepository.findById(userIdx.intValue()).get();
 		List<CompanyInfoDTO> companyInfoDTOs = new ArrayList<CompanyInfoDTO>();
 		for (UserLikeCompanyEntity userLikeCompany : UserLikeCompanyRepository.findByUserIdx(userEntity.getIdx())) {
-			CompanyInfoDTO companyInfoDTO = new CompanyInfoDTO();
 			CompanyEntity company = this.CompanyRepository.findById(userLikeCompany.getCompanyIdx()).get();
-			companyInfoDTO.setCompanyName(company.getCompanyName());
-			companyInfoDTO.setEmployeesNum(company.getEmployeesNum());
-			companyInfoDTO.setFoundingYear(company.getFoundingYear());
-			List<RecruitNoticeDTO> recruitNoticeDTOs = new ArrayList<RecruitNoticeDTO>();
-			for (RecruitmentNoticeEntity recruitmentNoticeEntity : company.getRecruitmentNotice()) {
-				RecruitNoticeDTO recruitNoticeDTO = new RecruitNoticeDTO();
-				recruitNoticeDTO.setSiteName(recruitmentNoticeEntity.getSiteName());
-				recruitNoticeDTO.setUri(recruitmentNoticeEntity.getUri());
-				recruitNoticeDTOs.add(recruitNoticeDTO);
-			}
-			List<CompanyInfoSiteDTO> companyInfoSiteDTOs = new ArrayList<CompanyInfoSiteDTO>();
-			for (CompanyInfoEntity companyInfoEntity: company.getCompanyInfo()) {
-				CompanyInfoSiteDTO companyInfoSiteDTO = new CompanyInfoSiteDTO();
-				companyInfoSiteDTO.setSiteName(companyInfoEntity.getSiteName());
-				companyInfoSiteDTO.setUri(companyInfoEntity.getUri());
-				companyInfoSiteDTOs.add(companyInfoSiteDTO);
-			}
-			companyInfoDTO.setRecruitNoticeDTOs(recruitNoticeDTOs);
-			companyInfoDTO.setCompanyInfoSiteDTOs(companyInfoSiteDTOs);
-			companyInfoDTOs.add(companyInfoDTO);
+			companyInfoDTOs.add(EntityToInfoDTO.companyEntityToCompanyInfoDTO(company));
 		}
 		return companyInfoDTOs;
 	}

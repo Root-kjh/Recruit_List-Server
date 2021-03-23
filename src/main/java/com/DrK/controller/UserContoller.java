@@ -15,15 +15,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 
+import com.DrK.DTO.CompanyInfoDTO;
 import com.DrK.DTO.EditPasswordDTO;
 import com.DrK.DTO.UpdateUserDTO;
-import com.DrK.Entities.CompanyEntity;
+import com.DrK.DTO.UserinfoDTO;
 import com.DrK.Entities.UserEntity;
+import com.DrK.Errors.PermissionDeniedException;
 import com.DrK.service.UserService;
 
 @RestController
@@ -34,13 +35,18 @@ public class UserContoller {
 	
 	private final UserService UserService;
 	
+	private boolean checkPermission(Long userId, Authentication authentication) throws Exception{
+		return userId==((UserEntity)authentication.getPrincipal()).getIdx();
+	}
+
 	@GetMapping("/companies")
-	public List<CompanyEntity> getLikeCompany(
+	public List<CompanyInfoDTO> getLikeCompany(
 		Authentication authentication,
 		@PathVariable Long userId
 		) throws Exception{
-		authentication.getPrincipal();
-		return null;
+		if (!this.checkPermission(userId, authentication))
+			throw new PermissionDeniedException();
+		return this.UserService.getUserLikeCompany(userId);
 	}
 	
 	@PostMapping("/companies/{companyId}")
@@ -48,35 +54,42 @@ public class UserContoller {
 			Authentication authentication,
 			@PathVariable Long userId,
 			@PathVariable String companyId) throws Exception{
-		Long userIdx = ((UserEntity) authentication.getPrincipal()).getIdx();
-		return UserService.setLikeCompany(userIdx, companyId);
+		if (!this.checkPermission(userId, authentication))
+		throw new PermissionDeniedException();
+		return UserService.setLikeCompany(userId, companyId);
 	}
 	
 	@DeleteMapping("/companies/{companyID}")
 	public boolean delCompany(
 			Authentication authentication,
 			@PathVariable Long userId,
-			@PathVariable String companyId) {
+			@PathVariable String companyId) throws Exception{
+		if (!this.checkPermission(userId, authentication))
+			throw new PermissionDeniedException();
 		return UserService.deleteLikeCompany(userId, companyId);
 	}
 
 	@PutMapping()
-	public void editUserInfo(
+	public UserinfoDTO editUserInfo(
 		Authentication authentication,
 		@PathVariable Long userId,
 		@RequestBody @Valid UpdateUserDTO updateUserDTO,
 		Errors errors
 	) throws Exception{
-
+		if (!this.checkPermission(userId, authentication))
+			throw new PermissionDeniedException();
+		return this.UserService.editUserinfo(userId, updateUserDTO);
 	}
 
 	@PatchMapping()
-	public void editPassword(
+	public boolean editPassword(
 		Authentication authentication,
 		@PathVariable Long userId,
 		@RequestBody @Valid EditPasswordDTO editPasswordDTO,
 		Errors errors
 	)throws Exception{
-
+		if (!this.checkPermission(userId, authentication))
+			throw new PermissionDeniedException();
+		return this.UserService.editPassword(userId, editPasswordDTO.getPassword());
 	}
 }

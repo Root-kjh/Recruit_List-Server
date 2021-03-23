@@ -20,6 +20,7 @@ public class ControllerInit extends TestInit{
     
     @Autowired
     protected UserService userService;
+    
     @Autowired
     protected CompanyService companyService;
 
@@ -42,10 +43,10 @@ public class ControllerInit extends TestInit{
         signinDTO.setUserName(TestLib.testUser.name);
         signinDTO.setPassword(TestLib.testUser.password);
 
-        return this.userService.createToken(signinDTO);
+        return this.userService.signin(signinDTO).getJwt();
     }
 
     public String getJwt(SigninDTO signinDTO) throws Exception{
-        return this.userService.createToken(signinDTO);
+        return this.userService.signin(signinDTO).getJwt();
     }
 }

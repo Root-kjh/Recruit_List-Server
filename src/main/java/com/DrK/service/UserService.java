@@ -24,7 +24,7 @@ public interface UserService {
 
 	public boolean editPassword(Long userIdx, String password);
 
-	public List<CompanyInfoDTO> getUserLikeCompany(String userName);
+	public List<CompanyInfoDTO> getUserLikeCompany(Long userIdx);
 	
 	public boolean setLikeCompany(Long userIdx, String companyId);
 	

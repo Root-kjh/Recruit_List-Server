@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.DrK.DTO.CompanyFilterDTO;
-import com.DrK.Entities.CompanyEntity;
+import com.DrK.DTO.CompanyInfoDTO;
 import com.DrK.service.CompanyService;
 
 import lombok.AllArgsConstructor;
@@ -25,17 +25,17 @@ public class CompanyController {
 	private final CompanyService companyService;
 		
 	@GetMapping("/page/{page}")
-	public List<CompanyEntity> Paging(@PathVariable int page) {
+	public List<CompanyInfoDTO> Paging(@PathVariable int page) {
 		return companyService.getCompanyList(page);
 	}
 	
 	@PostMapping("/filter")
-	public List<CompanyEntity> RecruitCompany(@RequestBody CompanyFilterDTO companyFilterDTO){
+	public List<CompanyInfoDTO> RecruitCompany(@RequestBody CompanyFilterDTO companyFilterDTO){
 		return companyService.getCompanyFilterd(companyFilterDTO);
 	}
 
 	@GetMapping("/companyName/{companyName}/page/{page}")
-	public List<CompanyEntity> searchByCompanyName(
+	public List<CompanyInfoDTO> searchByCompanyName(
 			@PathVariable String companyName,
 			@PathVariable int page){
 		return companyService.companyNameSearch(companyName, page);

@@ -30,13 +30,16 @@ public class TestInit {
     // Repositories
     @Autowired
     protected UserRepository userRepository;
+
     @Autowired
     protected CompanyRepository companyRepository;
+
     @Autowired
     protected UserLikeCompanyRepository userLikeCompanyRepository;
 
     @Autowired
     protected PasswordEncoder passwordEncoder;
+    
     @Autowired
     protected JwtTokenProvider jwtTokenProvider;
 
@@ -50,7 +53,6 @@ public class TestInit {
         log.info("============End Test============");
     }
 
-    // DB Init
     @Before
     @After
     public void clearDB(){
