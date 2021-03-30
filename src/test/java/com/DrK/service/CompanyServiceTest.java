@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.DrK.Config.ServiceInit;
 import com.DrK.DTO.CompanyFilterDTO;
+import com.DrK.DTO.CompanyInfoDTO;
 import com.DrK.Entities.CompanyEntity;
 import com.DrK.Entities.RecruitmentNoticeEntity;
 import com.DrK.lib.TestLib;
@@ -20,18 +21,22 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class CompanyServiceTest extends ServiceInit{
 	
+	private final int NUM_OF_COMPANIES = 40;
+
 	@Before
 	public void setCompanies() throws Exception {
-		for(int i=0;i<40;i++){
+		for(int i=0;i<NUM_OF_COMPANIES;i++){
 			this.makeTestCompany(TestLib.testCompany.companyName+Integer.toString(i));
 		}
 	}
 
 	@Test
 	public void getCompanyTest() {
-		List<CompanyEntity> companies = this.companyService.getCompanyList(1);
-		assertEquals(companies.get(0).getCompanyName(),TestLib.testCompany.companyName+"20");
-		assertEquals(companies.get(19).getCompanyName(),TestLib.testCompany.companyName+"39");
+		List<CompanyInfoDTO> companies = this.companyService.getCompanyList(1);
+
+		for(int i=0;i<20;i++){
+			assertEquals(companies.get(i).getCompanyName(),TestLib.testCompany.companyName+Integer.toString((i+20)));;
+		}
 	}
 
 	@Test
@@ -51,7 +56,7 @@ public class CompanyServiceTest extends ServiceInit{
 		companyFilterDTO.setRecruting(false);
 		companyFilterDTO.setPage(PageRequest.of(0, 20));
 
-		List<CompanyEntity> filterCompanyEntities =
+		List<CompanyInfoDTO> filterCompanyEntities =
 			this.companyService.getCompanyFilterd(companyFilterDTO);
 		assertEquals(filterCompanyEntities.get(0).getCompanyName(), filterCompanyName);
 
@@ -87,7 +92,7 @@ public class CompanyServiceTest extends ServiceInit{
 		companyEntity.setFoundingYear(TestLib.testCompany.foundingYear);
 		this.companyRepository.save(companyEntity);
 
-		List<CompanyEntity> companyEntities =
+		List<CompanyInfoDTO> companyEntities =
 			this.companyService.companyNameSearch(searchTestCompanyName, 0);
 		assertEquals(companyEntities.get(0).getCompanyName(), searchTestCompanyName);
 	}
